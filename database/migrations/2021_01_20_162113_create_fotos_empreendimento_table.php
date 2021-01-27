@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEnderecosIncorporadoraTable extends Migration
+class CreateFotosEmpreendimentoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateEnderecosIncorporadoraTable extends Migration
      */
     public function up()
     {
-        Schema::create('enderecos_incorporadora', function (Blueprint $table) {
+        Schema::create('fotos_empreendimento', function (Blueprint $table) {
             $table->id();
-            $table->string("cep");
-            $table->string("rua");
-            $table->string("bairro");
-            $table->string("cidade");
-            $table->string("numero");
-            $table->string("estado");
+            $table->string('nome')->nullable();
+            $table->integer('empreendimento_id');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateEnderecosIncorporadoraTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('enderecos_incorporadora');
+        Schema::dropIfExists('fotos_empreendimento');
     }
 }

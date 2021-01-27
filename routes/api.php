@@ -17,3 +17,28 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix' => 'endereco_incorporadora'], function() {
+    Route::get('/', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'index']);
+    Route::get('show/{id}/', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'show']);
+    Route::post('create/', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'create']);
+    Route::put('update/{id}', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'update']);
+    Route::delete('destroy/{id}', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'destroy']);
+});
+
+Route::group(['prefix' => 'empreendimento'], function() {
+    Route::get('/', [\App\Http\Controllers\EmpreendimentoController::class, 'index']);
+    Route::get('show/{id}/', [\App\Http\Controllers\EmpreendimentoController::class, 'show']);
+    Route::post('create/', [\App\Http\Controllers\EmpreendimentoController::class, 'create']);
+    Route::put('update/{id}', [\App\Http\Controllers\EmpreendimentoController::class, 'update']);
+    Route::delete('destroy/{id}', [\App\Http\Controllers\EmpreendimentoController::class, 'destroy']);
+});
+
+Route::group(['prefix' => 'foto_empreendimento'], function() {
+    Route::get('/', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'index']);
+    Route::get('show/{id}/', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'show']);
+    Route::post('create/', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'create']);
+    Route::put('update/{id}', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'update']);
+    Route::delete('destroy/{id}', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'destroy']);
+});
+

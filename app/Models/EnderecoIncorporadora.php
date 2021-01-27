@@ -9,7 +9,7 @@ class EnderecoIncorporadora extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cep', 'rua', 'bairro', 'cidade', 'numero', 'estado', 'incorporadora_id'];
+    protected $fillable = ['cep', 'rua', 'bairro', 'cidade', 'numero', 'estado'];
 
     protected $table = 'enderecos_incorporadora';
 }

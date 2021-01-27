@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Models\EnderecoIncorporadora;
+use App\Models\EnderecoIncorporadora;
 
 class EnderecoIncorporadoraController extends Controller
 {
@@ -25,7 +25,12 @@ class EnderecoIncorporadoraController extends Controller
     public function create(Request $request)
     {
         $validatedData = $request->validate([
-            'nome' => 'required|string|max:255',
+            'cep' => 'required|formato_cep',
+            'rua' => 'required|string|max:255',
+            'bairro' => 'required|string|max:255',
+            'cidade' => 'required|string|max:255',
+            'numero' => 'required|integer',
+            'estado' => 'required|string|max:255',
         ]);
 
         return EnderecoIncorporadora::create($validatedData);
@@ -34,7 +39,12 @@ class EnderecoIncorporadoraController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'nome' => 'string|max:255',
+            'cep' => 'formato_cep',
+            'rua' => 'string|max:255',
+            'bairro' => 'string|max:255',
+            'cidade' => 'string|max:255',
+            'numero' => 'integer',
+            'estado' => 'string|max:255',
         ]);
 
         $enderecoIncorporadora = EnderecoIncorporadora::find($id);
