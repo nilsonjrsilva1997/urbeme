@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\DadoBancario;
 
 class Banco extends Model
 {
@@ -12,4 +13,9 @@ class Banco extends Model
     protected $fillable = ['codigo_banco', 'nome_banco'];
 
     protected $table = 'bancos';
+
+    public function dados_bancarios()
+    {
+        return $this->hasMany(DadoBancario::class);
+    }
 }

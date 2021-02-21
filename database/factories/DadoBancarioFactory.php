@@ -23,7 +23,9 @@ class DadoBancarioFactory extends Factory
     {
         return [
             'agencia' => \Str::random(5),
-            'conta' => \Str::random(4)
+            'conta' => \Str::random(4),
+            'banco_id' => \App\Models\Banco::factory()->create()['id'],
+            'user_id' => \App\Models\User::factory()->create()['id'],
         ];
     }
 }

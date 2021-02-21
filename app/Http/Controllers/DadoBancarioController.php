@@ -27,7 +27,10 @@ class DadoBancarioController extends Controller
         $validatedData = $request->validate([
             'agencia' => 'required|string|max:15',
             'conta' => 'required|string|max:15',
+            'banco_id' => 'required|integer|exists:bancos,id',
         ]);
+
+        $validatedData['user_id'] = \Auth::id();
 
         return DadoBancario::create($validatedData);
     }
@@ -37,6 +40,7 @@ class DadoBancarioController extends Controller
         $validatedData = $request->validate([
             'agencia' => 'string|max:15',
             'conta' => 'string|max:15',
+            'banco_id' => 'integer|exists:bancos,id',
         ]);
 
         $dadoBancario = DadoBancario::find($id);

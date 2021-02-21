@@ -17,6 +17,8 @@ class CreateDadosBancariosTable extends Migration
             $table->id();
             $table->string('agencia');
             $table->string('conta');
+            $table->integer('banco_id');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
