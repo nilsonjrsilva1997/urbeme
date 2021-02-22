@@ -45,6 +45,6 @@ class User extends Authenticatable
 
     public function estado_civil()
     {
-        return $this->hasOne(EstadoCivil::class);
+        return $this->belongsTo(EstadoCivil::class, 'estado_civil_id', 'id');
     }
 }

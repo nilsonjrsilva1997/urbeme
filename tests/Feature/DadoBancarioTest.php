@@ -49,10 +49,77 @@ class DadoBancarioTest extends TestCase
     }
 
     /** @test */
-    public function dados_bancarios_update()
+    public function dados_bancarios_update_sem_dados_bancarios_cadastrados()
     {
+        $user = \App\Models\User::factory()->create();
+
+        $user->password = bcrypt('1234');
+
+        $user->save();
+
+        $response = $this->post('/api/login', [
+            'email' => $user->email,
+            'password' => '1234'
+        ], []);
         
+        $token = $response['access_token'];
+
+        $response = $this->put("/api/dados_bancarios/update/1", [
+            'conta' => '123',
+        ], ['Authorization' => "Bearer $token"]);
+
+        $response->assertStatus(422);
     }
+
+    /** @test */
+    public function alterar_dados_bancarios_outro_usuario()
+    {
+        $user = \App\Models\User::factory()->create();
+
+        $user->password = bcrypt('1234');
+
+        $user->save();
+
+        $response = $this->post('/api/login', [
+            'email' => $user->email,
+            'password' => '1234'
+        ], []);
+
+        $dadosBancarios = \App\Models\DadoBancario::factory()->create();
+        
+        $token = $response['access_token'];
+
+        $response = $this->put("/api/dados_bancarios/update/$dadosBancarios->id", [
+            'conta' => '123',
+        ], ['Authorization' => "Bearer $token"]);
+
+        $response->assertStatus(422);
+    }
+
+        /** @test */
+        public function update_do_usuario_logado()
+        {
+            $dadosBancarios = \App\Models\DadoBancario::factory()->create();
+
+            $user = \App\Models\User::find($dadosBancarios->user_id);
+    
+            $user->password = bcrypt('1234');
+    
+            $user->save();
+    
+            $response = $this->post('/api/login', [
+                'email' => $user->email,
+                'password' => '1234'
+            ], []);
+            
+            $token = $response['access_token'];
+    
+            $response = $this->put("/api/dados_bancarios/update/$dadosBancarios->id", [
+                'conta' => '1234',
+            ], ['Authorization' => "Bearer $token"]);
+    
+            $response->assertStatus(200);
+        }
 
     // public function testIndex()
     // {

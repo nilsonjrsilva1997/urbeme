@@ -10,12 +10,12 @@ class EstadoCivil extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'user_id'];
+    protected $fillable = ['nome'];
 
     protected $table = 'estado_civis';
 
     public function usuario()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->hasOne(User::class);
     }
 }

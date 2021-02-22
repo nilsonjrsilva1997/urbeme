@@ -16,7 +16,6 @@ class CreateEstadoCivisTable extends Migration
         Schema::create('estado_civis', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->integer('user_id');
             $table->timestamps();
         });
     }

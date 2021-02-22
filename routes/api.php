@@ -31,6 +31,15 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete('destroy/{id}', [\App\Http\Controllers\EmpreendimentoController::class, 'destroy']);
     });
 
+    
+    Route::group(['prefix' => 'estado_civil'], function () {
+        Route::get('/', [\App\Http\Controllers\EstadoCivilController::class, 'index']);
+        Route::get('show/{id}/', [\App\Http\Controllers\EstadoCivilController::class, 'show']);
+        Route::post('create/', [\App\Http\Controllers\EstadoCivilController::class, 'create']);
+        Route::put('update/{id}', [\App\Http\Controllers\EstadoCivilController::class, 'update']);
+        Route::delete('destroy/{id}', [\App\Http\Controllers\EstadoCivilController::class, 'destroy']);
+    });
+
     Route::group(['prefix' => 'foto_empreendimento'], function () {
         Route::get('/', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'index']);
         Route::get('show/{id}/', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'show']);
@@ -50,10 +59,14 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::group(['prefix' => 'dados_bancarios'], function () {
         Route::get('/', [\App\Http\Controllers\DadoBancarioController::class, 'index']);
-        Route::get('show/{id}/', [\App\Http\Controllers\DadoBancarioController::class, 'show']);
         Route::post('create/', [\App\Http\Controllers\DadoBancarioController::class, 'create']);
         Route::put('update/{id}', [\App\Http\Controllers\DadoBancarioController::class, 'update']);
-        Route::delete('destroy/{id}', [\App\Http\Controllers\DadoBancarioController::class, 'destroy']);
+    });
+
+    Route::group(['prefix' => 'dados_pessoais'], function () {
+        Route::get('/', [\App\Http\Controllers\UsuarioController::class, 'salvarDadosPessoais']);
+        Route::post('create/', [\App\Http\Controllers\UsuarioController::class, 'create']);
+        Route::put('update/{id}', [\App\Http\Controllers\UsuarioController::class, 'update']);
     });
 });
 
