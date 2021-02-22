@@ -64,9 +64,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
 
     Route::group(['prefix' => 'dados_pessoais'], function () {
-        Route::get('/', [\App\Http\Controllers\UsuarioController::class, 'salvarDadosPessoais']);
-        Route::post('create/', [\App\Http\Controllers\UsuarioController::class, 'create']);
-        Route::put('update/{id}', [\App\Http\Controllers\UsuarioController::class, 'update']);
+        Route::get('/', [\App\Http\Controllers\UsuarioController::class, 'index']);
+        Route::post('update/', [\App\Http\Controllers\UsuarioController::class, 'salvarDadosPessoais']);
     });
 });
 

@@ -9,16 +9,19 @@ class UsuarioController extends Controller
 {
     public function salvarDadosPessoais(Request $request)
     {
-        $userId = \Auth::id();
-        $request['user_id'] = $userId;
-
         $validatedData = $request->validate([
             'data_nascimento' => 'required|date',
-            'conta' => 'required|string|max:15',
-            'banco_id' => 'required|integer|exists:bancos,id',
-            'user_id' => 'required|unique:dados_bancarios,user_id',
+            'estado_civil_id' => 'required|integer|exists:estado_civis,id',
+            'cpf' => 'required|cpf',
+            'rg' => 'required|string|max:20',
+            'profissao' => 'required|string|max:255',
+            'empresa' => 'required|string|max:255',
+            'celular' => 'required|celular',
+            'telefone' => 'required|celular',
+            'sexo' => 'required|in:MASCULINO,FEMININO,OUTRO',
         ]);
 
-        return User::create($validatedData);
+        $user = \Auth::user();
+        return $user->fill($validatedData);
     }
 }
