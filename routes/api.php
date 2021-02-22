@@ -47,16 +47,14 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete('destroy/{id}', [\App\Http\Controllers\BancoController::class, 'destroy']);
     });
 
-    Route::group(['middleware' => ['user_rules_access']], function () {
-        Route::group(['prefix' => 'dados_bancarios'], function () {
-            Route::get('/', [\App\Http\Controllers\DadoBancarioController::class, 'index']);
-            Route::get('show/{id}/', [\App\Http\Controllers\DadoBancarioController::class, 'show']);
-            Route::post('create/', [\App\Http\Controllers\DadoBancarioController::class, 'create']);
-            Route::put('update/{id}', [\App\Http\Controllers\DadoBancarioController::class, 'update']);
-            Route::delete('destroy/{id}', [\App\Http\Controllers\DadoBancarioController::class, 'destroy']);
-        });
-    });
 
+    Route::group(['prefix' => 'dados_bancarios'], function () {
+        Route::get('/', [\App\Http\Controllers\DadoBancarioController::class, 'index']);
+        Route::get('show/{id}/', [\App\Http\Controllers\DadoBancarioController::class, 'show']);
+        Route::post('create/', [\App\Http\Controllers\DadoBancarioController::class, 'create']);
+        Route::put('update/{id}', [\App\Http\Controllers\DadoBancarioController::class, 'update']);
+        Route::delete('destroy/{id}', [\App\Http\Controllers\DadoBancarioController::class, 'destroy']);
+    });
 });
 
 Route::post('register/', [\App\Http\Controllers\AuthController::class, 'register']);

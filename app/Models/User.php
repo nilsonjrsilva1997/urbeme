@@ -17,6 +17,15 @@ class User extends Authenticatable
         'nome',
         'sobre_nome',
         'email',
+        'data_nascimento',
+        'estado_civil_id',
+        'cpf',
+        'rg',
+        'profissao',
+        'empresa',
+        'celular',
+        'telefone',
+        'sexo',
         'password',
     ];
 
