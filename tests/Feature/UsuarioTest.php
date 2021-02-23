@@ -35,8 +35,8 @@ class UsuarioTest extends TestCase
             'rg' => 'XXXXXXXXX-X',
             'profissao' => 'TESTE',
             'empresa' => 'EMPRESA XPTO',
-            'celular' => '99999-9999',
-            'telefone' => '22222-2222',
+            'celular' => '55 (13) 99999-9999',
+            'telefone' => '55 (13) 99999-9999',
             'sexo' => 'MASCULINO'
         ], ['Authorization' => "Bearer $token"]);
 

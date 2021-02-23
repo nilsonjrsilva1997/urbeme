@@ -16,8 +16,8 @@ class UsuarioController extends Controller
             'rg' => 'required|string|max:20',
             'profissao' => 'required|string|max:255',
             'empresa' => 'required|string|max:255',
-            'celular' => 'required|celular',
-            'telefone' => 'required|celular',
+            'celular' => ['required','regex:/(\(\d{2}\)\s)(\d{4,5}\-\d{4})/'],
+            'telefone' => ['required','regex:/(\(\d{2}\)\s)(\d{4,5}\-\d{4})/'],
             'sexo' => 'required|in:MASCULINO,FEMININO,OUTRO',
         ]);
 
