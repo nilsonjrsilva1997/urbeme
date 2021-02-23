@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Models\DadoBancario;
 use App\Models\EstadoCivil;
+use App\Models\Endereco;
 
 class User extends Authenticatable
 {
@@ -27,6 +28,7 @@ class User extends Authenticatable
         'telefone',
         'sexo',
         'password',
+        'foto',
     ];
 
     protected $hidden = [
@@ -46,5 +48,10 @@ class User extends Authenticatable
     public function estado_civil()
     {
         return $this->belongsTo(EstadoCivil::class, 'estado_civil_id', 'id');
+    }
+
+    public function endereco()
+    {
+        return $this->hasOne(Endereco::class);
     }
 }

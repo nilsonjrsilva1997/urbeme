@@ -66,6 +66,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::group(['prefix' => 'dados_pessoais'], function () {
         Route::get('/', [\App\Http\Controllers\UsuarioController::class, 'index']);
         Route::post('update/', [\App\Http\Controllers\UsuarioController::class, 'salvarDadosPessoais']);
+        Route::post('upload_foto/', [\App\Http\Controllers\UsuarioController::class, 'uploadFoto']);
+        Route::post('upload_foto_update/', [\App\Http\Controllers\UsuarioController::class, 'uploadFotoUpdate']);
     });
 });
 

@@ -16,12 +16,66 @@ class UsuarioController extends Controller
             'rg' => 'required|string|max:20',
             'profissao' => 'required|string|max:255',
             'empresa' => 'required|string|max:255',
-            'celular' => ['required','regex:/(\(\d{2}\)\s)(\d{4,5}\-\d{4})/'],
-            'telefone' => ['required','regex:/(\(\d{2}\)\s)(\d{4,5}\-\d{4})/'],
+            'celular' => ['required', 'regex:/(\(\d{2}\)\s)(\d{4,5}\-\d{4})/'],
+            'telefone' => ['required', 'regex:/(\(\d{2}\)\s)(\d{4,5}\-\d{4})/'],
             'sexo' => 'required|in:MASCULINO,FEMININO,OUTRO',
         ]);
 
         $user = \Auth::user();
         return $user->fill($validatedData);
     }
+
+    public function uploadFoto(Request $request)
+    {
+        $user = \Auth::user();
+
+        if($user['foto'] != null) {
+            return response(['message' => 'Usuário já possui foto, atualize para mudar'], 422);
+        }
+
+        $fileNameToStore = '';
+
+        if ($request->hasFile('foto')) {
+            $filenameWithExt = $request->file('foto')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('foto')->getClientOriginalExtension();
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            $path = $request->file('foto')->storeAs('public/images', $fileNameToStore);
+        } else {
+            return response(['foto' => 'A foto é obrigatória']);
+        }
+
+        
+        $user['foto'] = $fileNameToStore;
+        $user->save();
+        return $user;
+    }
+
+    public function uploadFotoUpdate(Request $request)
+    {
+        $user = \Auth::user();
+
+        if(!empty($user)) {
+            if($request->hasFile('foto')) {
+                unlink(storage_path('app/public/images/'. $user->foto));
+            }
+
+            $fileNameToStore = '';
+            $filenameWithExt = $request->file('foto')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('foto')->getClientOriginalExtension();
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $path = $request->file('foto')->storeAs('public/images', $fileNameToStore);
+
+            $validatedData['foto'] = $fileNameToStore;
+
+            $user->fill($validatedData);
+            $user->save();
+
+            return $user;
+        } else {
+            return response(['message' => 'Usuário não encontrado']);
+        }
+    }
+
 }

@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->enum('sexo', ['MASCULINO', 'FEMININO', 'OUTRO'])->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('foto')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
