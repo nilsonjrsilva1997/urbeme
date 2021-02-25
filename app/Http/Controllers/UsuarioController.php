@@ -10,6 +10,7 @@ class UsuarioController extends Controller
     public function salvarDadosPessoais(Request $request)
     {
         $validatedData = $request->validate([
+            'nome' => 'required|string|max:255',
             'data_nascimento' => 'required|date',
             'estado_civil_id' => 'required|integer|exists:estado_civis,id',
             'cpf' => 'required|cpf',
