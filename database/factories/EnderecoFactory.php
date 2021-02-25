@@ -23,16 +23,8 @@ class EnderecoFactory extends Factory
     {
         return [
             'cep' => '00000-000',
-            ''
+            'pais_id' => 1,
+            
         ];
     }
-
-    $table->string('cep');
-    $table->integer('pais_id');
-    $table->integer('user_id');
-    $table->string('estado');
-    $table->string('cidade');
-    $table->string('rua');
-    $table->string('numero');
-    $table->string('complemento')->nullable();
 }
