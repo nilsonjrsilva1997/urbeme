@@ -29,7 +29,8 @@ class UsuarioController extends Controller
         ]);
 
         $user = \Auth::user();
-        return $user->fill($validatedData);
+        $user->fill($validatedData);
+        return $user->save();
     }
 
     public function uploadFoto(Request $request)
