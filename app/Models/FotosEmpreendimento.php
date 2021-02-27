@@ -12,4 +12,9 @@ class FotosEmpreendimento extends Model
     protected $fillable = ['nome', 'empreendimento_id'];
 
     protected $table = 'fotos_empreendimento';
+
+    public function empreendimento()
+    {
+        return $this->belongsTo(Empreendimento::class, 'empreendimento_id', 'id');
+    }
 }

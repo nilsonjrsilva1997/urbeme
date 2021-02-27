@@ -71,5 +71,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
 });
 
+Route::group(['prefix' => 'empreendimento'], function () {
+    Route::get('/', [\App\Http\Controllers\EmpreendimentoController::class, 'index']);
+});
+
 Route::post('register/', [\App\Http\Controllers\AuthController::class, 'register']);
 Route::post('login/', [\App\Http\Controllers\AuthController::class, 'login']);

@@ -9,7 +9,9 @@ class EmpreendimentoController extends Controller
 {
     public function index()
     {
-        return Empreendimento::all();
+        $empreendimento = Empreendimento::with('fotos')->with('endereco')->get();
+        return $empreendimento;
+        
     }
 
     public function show($id)
