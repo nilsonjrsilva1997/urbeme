@@ -15,6 +15,8 @@ class PasswordController extends Controller
         $user = \Auth::user();
 
         $user->password = bcrypt($request->senha);
-        $user->save();
+        if($user->save()) {
+            return response(['message' => 'Senha alterada com sucesso']);
+        }
     }
 }
