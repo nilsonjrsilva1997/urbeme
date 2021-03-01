@@ -9,6 +9,7 @@ use Laravel\Passport\HasApiTokens;
 use App\Models\DadoBancario;
 use App\Models\EstadoCivil;
 use App\Models\Endereco;
+use App\Models\Documento;
 
 class User extends Authenticatable
 {
@@ -53,5 +54,10 @@ class User extends Authenticatable
     public function endereco()
     {
         return $this->hasOne(Endereco::class);
+    }
+
+    public function documento()
+    {
+        return $this->hasOne(Documento::class);
     }
 }

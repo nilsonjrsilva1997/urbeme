@@ -23,6 +23,14 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete('destroy/{id}', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'destroy']);
     });
 
+    Route::group(['prefix' => 'documento'], function () {
+        Route::get('/', [\App\Http\Controllers\DocumentoController::class, 'index']);
+        Route::get('show/{id}/', [\App\Http\Controllers\DocumentoController::class, 'show']);
+        Route::post('create/', [\App\Http\Controllers\DocumentoController::class, 'create']);
+        Route::put('update/{id}', [\App\Http\Controllers\DocumentoController::class, 'update']);
+        Route::delete('destroy/{id}', [\App\Http\Controllers\DocumentoController::class, 'destroy']);
+    });
+
     Route::group(['prefix' => 'endereco_usuario'], function () {
         Route::get('/', [\App\Http\Controllers\EnderecoController::class, 'index']);
         Route::get('show/{id}/', [\App\Http\Controllers\EnderecoController::class, 'show']);
