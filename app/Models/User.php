@@ -30,8 +30,10 @@ class User extends Authenticatable
         'sexo',
         'password',
         'foto',
+        'aparecer_lista',
+        'pessoa_publicamente_exposta',
     ];
-
+    
     protected $hidden = [
         'password',
         'remember_token',

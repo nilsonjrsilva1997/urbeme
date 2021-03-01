@@ -26,6 +26,8 @@ class UsuarioController extends Controller
             'celular' => ['required', 'regex:/(\(\d{2}\)\s)(\d{4,5}\-\d{4})/'],
             'telefone' => ['required', 'regex:/(\(\d{2}\)\s)(\d{4,5}\-\d{4})/'],
             'sexo' => 'required|in:MASCULINO,FEMININO,OUTRO',
+            'aparecer_lista' => 'required|boolean',
+            'pessoa_publicamente_exposta' => 'required|boolean',
         ]);
 
         $user = \Auth::user();
