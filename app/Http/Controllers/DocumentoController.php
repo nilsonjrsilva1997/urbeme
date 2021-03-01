@@ -24,6 +24,12 @@ class DocumentoController extends Controller
 
     public function create(Request $request)
     {
+        $request['user_id'] = \Auth::id();
+
+        $validatedData = $request->validate([
+            'user_id' => 'required|integer|exists:users,id|unique:documentos,user_id'
+        ]);
+
         $fileNameToStore = '';
 
         if ($request->hasFile('selfie')) {
@@ -65,8 +71,6 @@ class DocumentoController extends Controller
         }
 
         $validatedData['declaracao_residencia'] = $fileNameToStore;
-
-        $validatedData['user_id'] = \Auth::id();
 
         return Documento::create($validatedData);
     }
