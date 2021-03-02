@@ -31,6 +31,18 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete('destroy/{id}', [\App\Http\Controllers\DocumentoController::class, 'destroy']);
     });
 
+    Route::group(['prefix' => 'investimento'], function () {
+        Route::get('/', [\App\Http\Controllers\InvestimentoController::class, 'index']);
+        Route::get('show/{id}/', [\App\Http\Controllers\InvestimentoController::class, 'show']);
+        Route::post('create/', [\App\Http\Controllers\InvestimentoController::class, 'create']);
+        Route::put('update/{id}', [\App\Http\Controllers\InvestimentoController::class, 'update']);
+        Route::delete('destroy/{id}', [\App\Http\Controllers\InvestimentoController::class, 'destroy']);
+    });
+
+    Route::group(['prefix' => 'documento_investimento'], function () {
+        Route::post('create/', [\App\Http\Controllers\DocumentoInvestimentoController::class, 'create']);
+    });
+
     Route::post('resetar_senha/', [\App\Http\Controllers\PasswordController::class, 'resetarSenha']);
 
     Route::group(['prefix' => 'endereco_usuario'], function () {

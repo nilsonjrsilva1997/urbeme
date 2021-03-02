@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDocumentosTable extends Migration
+class CreateDocumentosInvestimentoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateDocumentosTable extends Migration
      */
     public function up()
     {
-        Schema::create('documentos', function (Blueprint $table) {
+        Schema::create('documentos_investimento', function (Blueprint $table) {
             $table->id();
             $table->string('selfie')->nullable();
-            $table->string('comprovante_residencia');
-            $table->string('declaracao_residencia');
-            $table->integer('user_id');
+            $table->string('imagem_documento')->nullable();
+            $table->integer('investimento_id');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateDocumentosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('documentos');
+        Schema::dropIfExists('documentos_investimento');
     }
 }

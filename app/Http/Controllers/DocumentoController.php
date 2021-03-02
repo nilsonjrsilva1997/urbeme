@@ -32,20 +32,6 @@ class DocumentoController extends Controller
 
         $fileNameToStore = '';
 
-        if ($request->hasFile('selfie')) {
-            $filenameWithExt = $request->file('selfie')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('selfie')->getClientOriginalExtension();
-            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-            $path = $request->file('selfie')->storeAs('public/images', $fileNameToStore);
-        } else {
-            return response(['selfie' => 'A selfie é obrigatória']);
-        }
-
-        $validatedData['selfie'] = $fileNameToStore;
-
-        $fileNameToStore = '';
-
         if ($request->hasFile('comprovante_residencia')) {
             $filenameWithExt = $request->file('comprovante_residencia')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
@@ -71,6 +57,7 @@ class DocumentoController extends Controller
         }
 
         $validatedData['declaracao_residencia'] = $fileNameToStore;
+
 
         return Documento::create($validatedData);
     }
