@@ -60,11 +60,6 @@ class User extends Authenticatable
 
     public function documento()
     {
-        return $this->hasOne(Documento::class);
-    }
-
-    public function investimentos()
-    {
-        return $this->hasMany(\App\Models\Investimento::class);
+        return $this->hasMany(Documento::class);
     }
 }

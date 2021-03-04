@@ -10,7 +10,7 @@ class Documento extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['selfie', 'comprovante_residencia', 'declaracao_residencia', 'user_id'];
+    protected $fillable = ['nome', 'arquivo', 'user_id'];
 
     protected $table = 'documentos';
 

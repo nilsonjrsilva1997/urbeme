@@ -17,9 +17,4 @@ class Investimento extends Model
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
-
-    public function documentos_investimento()
-    {
-        return $this->hasOne(\App\Models\DocumentoInvestimento::class);
-    }
 }

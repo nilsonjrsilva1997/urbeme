@@ -15,9 +15,8 @@ class CreateDocumentosTable extends Migration
     {
         Schema::create('documentos', function (Blueprint $table) {
             $table->id();
-            $table->string('selfie')->nullable();
-            $table->string('comprovante_residencia');
-            $table->string('declaracao_residencia');
+            $table->enum('nome', ['SELFIE', 'DOCUMENTO', 'COMPROVANTE_RESIDENCIA', 'DECLARACAO_RESIDENCIA']);
+            $table->string('arquivo');
             $table->integer('user_id');
             $table->timestamps();
         });
