@@ -35,7 +35,18 @@ class DocumentoController extends Controller
 
         $validatedData['arquivo'] = $fileNameToStore;
 
-        return Documento::create($validatedData);
+        $document = Documento::where(['user_id' => $validatedData['user_id']])
+            ->where(['nome' => $validatedData['nome']])
+            ->first();
+
+        if ($document) {
+            $document->fill($validatedData);
+            $document->save();
+        } else {
+            $document = Documento::create($validatedData);
+        }
+
+        return $document;
     }
 
     public function update(Request $request, $id)
@@ -50,6 +61,10 @@ class DocumentoController extends Controller
         $documento = Documento::find($id);
 
         if (!empty($documento)) {
+            if ($documento->user_id !== \Auth::id()) {
+                return response(['message' => 'Usuário não autorizado']);
+            }
+
             $fileNameToStore = '';
 
             if ($request->hasFile('arquivo')) {
