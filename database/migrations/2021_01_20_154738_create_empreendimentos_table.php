@@ -16,6 +16,7 @@ class CreateEmpreendimentosTable extends Migration
         Schema::create('empreendimentos', function (Blueprint $table) {
             $table->id();
             $table->string('logo_incoporadora')->nullable();
+            $table->string('slug')->unique();
             $table->string('plano_fundo')->nullable();
             $table->string('nome_projeto');
             $table->integer('endereco_id');

@@ -16,7 +16,7 @@ class Empreendimento extends Model
         'descricao_projeto', 'live_incorporadora', 'site_incorporadora', 'rentabilidade_anual', 'rentabilidade_minima',
         'vencimento_titulo', 'informacoes_incorporadora', 'informacoes_empreendimento', 'informacoes_oferta',
         'informacoes_prestacao_contas', 'alerta_riscos', 'caracteristica_oferta_tributacao_aplicavel',
-        'estudo_viabilidade_economica', 'outras_informacoes', 'pacote_documentos_juridicos', 'status'
+        'estudo_viabilidade_economica', 'outras_informacoes', 'pacote_documentos_juridicos', 'status', 'slug'
     ];
 
     protected $table = 'empreendimentos';

@@ -14,6 +14,11 @@ class EmpreendimentoController extends Controller
         
     }
 
+    public function getEmpreendimentoBySlug($slug)
+    {
+        return Empreendimento::where(['slug' => $slug])->first();
+    }
+
     public function show($id)
     {
         $empreendimento = Empreendimento::find($id);
@@ -45,7 +50,8 @@ class EmpreendimentoController extends Controller
             'rentabilidade_anual' => 'required|string|max:255',
             'rentabilidade_minima' => 'required|string|max:255',
             'vencimento_titulo' => 'required|date',
-            'status' => 'required|in:FINALIZADO,ATIVO'
+            'status' => 'required|in:FINALIZADO,ATIVO',
+            'slug' => 'required|unique:empreendimentos,slug',
         ]);
 
         $fileNameToStore = '';
@@ -100,7 +106,8 @@ class EmpreendimentoController extends Controller
             'rentabilidade_anual' => 'string|max:255',
             'rentabilidade_minima' => 'string|max:255',
             'vencimento_titulo' => 'date',
-            'status' => 'in:FINALIZADO,ATIVO'
+            'status' => 'in:FINALIZADO,ATIVO',
+            'slug' => 'unique:empreendimentos,slug',
         ]);
 
         $empreendimento = Empreendimento::find($id);
