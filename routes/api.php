@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::group(['prefix' => 'documento'], function () {
         Route::get('/', [\App\Http\Controllers\DocumentoController::class, 'index']);
         Route::post('create/', [\App\Http\Controllers\DocumentoController::class, 'create']);
+        Route::put('update/{id}', [\App\Http\Controllers\DocumentoController::class, 'update']);
     });
 
     Route::group(['prefix' => 'investimento'], function () {
