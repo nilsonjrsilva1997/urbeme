@@ -45,6 +45,7 @@ class EmpreendimentoController extends Controller
             'rentabilidade_anual' => 'required|string|max:255',
             'rentabilidade_minima' => 'required|string|max:255',
             'vencimento_titulo' => 'required|date',
+            'status' => 'required|in:FINALIZADO,ATIVO'
         ]);
 
         $fileNameToStore = '';
@@ -81,12 +82,25 @@ class EmpreendimentoController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'cep' => 'formato_cep',
-            'rua' => 'string|max:255',
-            'bairro' => 'string|max:255',
-            'cidade' => 'string|max:255',
-            'numero' => 'integer',
-            'estado' => 'string|max:255',
+            'nome_projeto' => 'string|max:255',
+            'endereco_id' => 'integer|exists:enderecos_incorporadora,id',
+            'url_video' => 'url',
+            'descricao_projeto' => 'string|max:10000',
+            'informacoes_incorporadora' => 'string|max:10000',
+            'informacoes_empreendimento' => 'string|max:10000',
+            'informacoes_oferta' => 'string|max:10000',
+            'informacoes_prestacao_contas' => 'string|max:10000',
+            'alerta_riscos' => 'string|max:10000',
+            'caracteristica_oferta_tributacao_aplicavel' => 'string|max:10000',
+            'estudo_viabilidade_economica' => 'string|max:10000',
+            'outras_informacoes' => 'string|max:10000',
+            'pacote_documentos_juridicos' => 'string|max:10000',
+            'live_incorporadora' => 'url',
+            'site_incorporadora' => 'url',
+            'rentabilidade_anual' => 'string|max:255',
+            'rentabilidade_minima' => 'string|max:255',
+            'vencimento_titulo' => 'date',
+            'status' => 'in:FINALIZADO,ATIVO'
         ]);
 
         $empreendimento = Empreendimento::find($id);
