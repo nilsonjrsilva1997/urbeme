@@ -9,7 +9,7 @@ class DocumentoController extends Controller
 {
     public function index()
     {
-        return Documento::all();
+        return Documento::where(['user_id' => \Auth::id()])->get();
     }
 
     public function show($id)

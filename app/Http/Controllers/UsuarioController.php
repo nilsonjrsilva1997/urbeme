@@ -32,14 +32,15 @@ class UsuarioController extends Controller
 
         $user = \Auth::user();
         $user->fill($validatedData);
-        return $user->save();
+        $user->save();
+        return $user;
     }
 
     public function uploadFoto(Request $request)
     {
         $user = \Auth::user();
 
-        if($user['foto'] != null) {
+        if ($user['foto'] != null) {
             return response(['message' => 'Usuário já possui foto, atualize para mudar'], 422);
         }
 
@@ -55,7 +56,7 @@ class UsuarioController extends Controller
             return response(['foto' => 'A foto é obrigatória']);
         }
 
-        
+
         $user['foto'] = $fileNameToStore;
         $user->save();
         return $user;
@@ -65,16 +66,16 @@ class UsuarioController extends Controller
     {
         $user = \Auth::user();
 
-        if(!empty($user)) {
-            if($request->hasFile('foto')) {
-                unlink(storage_path('app/public/images/'. $user->foto));
+        if (!empty($user)) {
+            if ($request->hasFile('foto')) {
+                unlink(storage_path('app/public/images/' . $user->foto));
             }
 
             $fileNameToStore = '';
             $filenameWithExt = $request->file('foto')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('foto')->getClientOriginalExtension();
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
             $path = $request->file('foto')->storeAs('public/images', $fileNameToStore);
 
             $validatedData['foto'] = $fileNameToStore;
@@ -87,5 +88,4 @@ class UsuarioController extends Controller
             return response(['message' => 'Usuário não encontrado']);
         }
     }
-
 }
