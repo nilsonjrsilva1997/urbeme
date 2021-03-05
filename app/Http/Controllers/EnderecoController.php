@@ -18,7 +18,7 @@ class EnderecoController extends Controller
         $request['user_id'] = $userId;
 
         $validatedData = $request->validate([
-            'cep' => 'required|cep',
+            'cep' => 'required',
             'pais_id' => 'required|integer|exists:paises,id',
             'user_id' => 'required|integer|exists:users,id|unique:enderecos,user_id',
             'estado' => 'required|string|max:255',
@@ -34,7 +34,7 @@ class EnderecoController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'cep' => 'required|cep',
+            'cep' => 'required',
             'pais_id' => 'required|integer|exists:paises,id',
             'estado' => 'required|string|max:255',
             'cidade' => 'required|string|max:255',
