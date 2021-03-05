@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::group(['prefix' => 'empreendimento'], function () {
         Route::get('/', [\App\Http\Controllers\EmpreendimentoController::class, 'index']);
+        Route::get('/projetos_finalizados', [\App\Http\Controllers\EmpreendimentoController::class, 'getProjetosFinalizados']);
         Route::get('show/{id}/', [\App\Http\Controllers\EmpreendimentoController::class, 'show']);
         Route::post('create/', [\App\Http\Controllers\EmpreendimentoController::class, 'create']);
         Route::put('update/{id}', [\App\Http\Controllers\EmpreendimentoController::class, 'update']);
@@ -92,10 +93,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post('upload_foto/', [\App\Http\Controllers\UsuarioController::class, 'uploadFoto']);
         Route::post('upload_foto_update/', [\App\Http\Controllers\UsuarioController::class, 'uploadFotoUpdate']);
     });
-});
-
-Route::group(['prefix' => 'empreendimento'], function () {
-    Route::get('/', [\App\Http\Controllers\EmpreendimentoController::class, 'index']);
 });
 
 Route::post('register/', [\App\Http\Controllers\AuthController::class, 'register']);

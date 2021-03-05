@@ -124,4 +124,9 @@ class EmpreendimentoController extends Controller
             return response(['message' => 'Empreendimento não encontrado']);
         }
     }
+
+    public function getProjetosFinalizados()
+    {
+        return Empreendimento::where(['status' => 'FINALIZADO'])->get();
+    }
 }
