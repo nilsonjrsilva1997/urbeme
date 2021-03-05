@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
 
     Route::group(['prefix' => 'documento'], function () {
+        Route::get('/', [\App\Http\Controllers\DocumentoController::class, 'index']);
         Route::post('create/', [\App\Http\Controllers\DocumentoController::class, 'create']);
     });
 
@@ -53,7 +54,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete('destroy/{id}', [\App\Http\Controllers\EmpreendimentoController::class, 'destroy']);
     });
 
-    
+
     Route::group(['prefix' => 'estado_civil'], function () {
         Route::get('/', [\App\Http\Controllers\EstadoCivilController::class, 'index']);
         Route::get('show/{id}/', [\App\Http\Controllers\EstadoCivilController::class, 'show']);
