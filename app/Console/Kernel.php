@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
-            \App\Models\TesteSchedule::create('' . now());
+            \App\Models\TesteSchedule::create('123');
         })->everyMinute();;
     }
 
