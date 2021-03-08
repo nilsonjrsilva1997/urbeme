@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Documento::class);
     }
+
+    public function investimento()
+    {
+        return $this->hasMany(\App\Models\Investimento::class);
+    }
 }

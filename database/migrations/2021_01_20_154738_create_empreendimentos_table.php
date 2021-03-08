@@ -37,6 +37,7 @@ class CreateEmpreendimentosTable extends Migration
             $table->longText('outras_informacoes');
             $table->longText('pacote_documentos_juridicos');
             $table->enum('status', ['FINALIZADO', 'ATIVO']);
+            $table->float('valor_total_capitacao');
             $table->timestamps();
         });
     }

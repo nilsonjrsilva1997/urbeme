@@ -52,6 +52,7 @@ class EmpreendimentoController extends Controller
             'vencimento_titulo' => 'required|date',
             'status' => 'required|in:FINALIZADO,ATIVO',
             'slug' => 'required|unique:empreendimentos,slug',
+            'valor_total_capitacao' => 'required|numeric',
         ]);
 
         $fileNameToStore = '';
@@ -108,6 +109,7 @@ class EmpreendimentoController extends Controller
             'vencimento_titulo' => 'date',
             'status' => 'in:FINALIZADO,ATIVO',
             'slug' => 'unique:empreendimentos,slug',
+            'valor_total_capitacao' => 'numeric',
         ]);
 
         $empreendimento = Empreendimento::find($id);
@@ -135,5 +137,13 @@ class EmpreendimentoController extends Controller
     public function getProjetosFinalizados()
     {
         return Empreendimento::where(['status' => 'FINALIZADO'])->get();
+    }
+
+    public function porcentagemInvestimentos($empreendimento_id)
+    {
+        $valorInvestimentos = \App\Models\Investimento::where(['empreendimento_id' => $empreendimento_id])->sum('valor');
+        $valorCapitacao = \App\Models\Empreendimento::where(['id' => $empreendimento_id])->select('valor_total_capitacao')->first()['valor_total_capitacao'];
+
+        return ['porcentagem' => ($valorInvestimentos * 100) / $valorCapitacao];
     }
 }

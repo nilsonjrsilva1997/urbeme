@@ -20,9 +20,8 @@ class InvestimentoController extends Controller
             'valor' => 'required|numeric',
             'codigo_indicacao' => 'required|string|max:255',
             'user_id' => 'required|integer|exists:users,id',
+            'empreendimento_id' => 'required|integer|exists:empreendimentos,id'
         ]);
-
-        // protected $fillable = ['valor', 'codigo_indicacao', 'user_id'];
 
         return \App\Models\Investimento::create($validatedData);
     }
@@ -33,6 +32,7 @@ class InvestimentoController extends Controller
             'valor' => 'numeric',
             'codigo_indicacao' => 'string|max:255',
             'user_id' => 'integer|exists:users,id',
+            'empreendimento_id' => 'integer|exists:empreendimentos,id'
         ]);
 
         $investimento = \App\Models\Investimento::find($id);
@@ -55,5 +55,13 @@ class InvestimentoController extends Controller
         } else {
             return response(['message' => 'Investimento não encontrado']);
         }
+    }
+
+    public function investidores($empreendimento_id)
+    {
+        return \App\Models\Empreendimento::where(['id' => $empreendimento_id])
+        ->with('investimento.usuario')
+        ->select('nome')
+        ->get();
     }
 }

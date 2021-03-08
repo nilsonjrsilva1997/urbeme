@@ -88,4 +88,9 @@ class UsuarioController extends Controller
             return response(['message' => 'Usuário não encontrado']);
         }
     }
+
+    public function meusInvestimentos()
+    {
+        return \Auth::user()->with('investimento')->with('investimento.empreendimento')->get()[0]['investimento'];
+    }
 }

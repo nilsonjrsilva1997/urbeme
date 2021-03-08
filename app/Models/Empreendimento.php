@@ -16,7 +16,7 @@ class Empreendimento extends Model
         'descricao_projeto', 'live_incorporadora', 'site_incorporadora', 'rentabilidade_anual', 'rentabilidade_minima',
         'vencimento_titulo', 'informacoes_incorporadora', 'informacoes_empreendimento', 'informacoes_oferta',
         'informacoes_prestacao_contas', 'alerta_riscos', 'caracteristica_oferta_tributacao_aplicavel',
-        'estudo_viabilidade_economica', 'outras_informacoes', 'pacote_documentos_juridicos', 'status', 'slug'
+        'estudo_viabilidade_economica', 'outras_informacoes', 'pacote_documentos_juridicos', 'status', 'slug', 'valor_total_capitacao'
     ];
 
     protected $table = 'empreendimentos';
@@ -29,5 +29,10 @@ class Empreendimento extends Model
     public function fotos()
     {
         return $this->hasMany(FotosEmpreendimento::class);
+    }
+
+    public function investimento()
+    {
+        return $this->hasOne(\App\Models\Investimento::class);
     }
 }
