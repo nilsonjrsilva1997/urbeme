@@ -9,13 +9,13 @@ class EmpreendimentoController extends Controller
 {
     public function index()
     {
-        $empreendimento = Empreendimento::with('fotos')->with('endereco')->get();
+        $empreendimento = Empreendimento::with('fotos')->with('investimento')->with('endereco')->get();
         return $empreendimento;
     }
 
     public function getEmpreendimentoBySlug($slug)
     {
-        return Empreendimento::where(['slug' => $slug])->with('fotos')->with('endereco')->first();
+        return Empreendimento::where(['slug' => $slug])->with('fotos')->with('investimento')->with('endereco')->first();
     }
 
     public function show($id)
@@ -135,7 +135,7 @@ class EmpreendimentoController extends Controller
 
     public function getProjetosFinalizados()
     {
-        return Empreendimento::where(['status' => 'FINALIZADO'])->with('fotos')->with('endereco')->get();
+        return Empreendimento::where(['status' => 'FINALIZADO'])->with('fotos')->with('investimento')->with('endereco')->get();
     }
 
     public function porcentagemInvestimentos($empreendimento_id)
