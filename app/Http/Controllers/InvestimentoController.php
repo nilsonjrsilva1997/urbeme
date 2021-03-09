@@ -61,7 +61,6 @@ class InvestimentoController extends Controller
     {
         return \App\Models\Empreendimento::where(['id' => $empreendimento_id])
         ->with('investimento.usuario')
-        ->select('nome')
         ->get();
     }
 }
