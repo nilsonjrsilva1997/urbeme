@@ -8,7 +8,7 @@ class InvestimentoController extends Controller
 {
     public function index()
     {
-        return \App\Models\Investimento::where(['user_id' => \Auth::id()])->first();
+        return \App\Models\Investimento::where(['user_id' => \Auth::id()])->with('empreendimento')->get();
     }
 
     public function create(Request $request)
@@ -37,7 +37,7 @@ class InvestimentoController extends Controller
 
         $investimento = \App\Models\Investimento::find($id);
 
-        if(!empty($investimento)) {
+        if (!empty($investimento)) {
             $investimento->fill($validatedData);
             $investimento->save();
             return $investimento;
@@ -60,7 +60,7 @@ class InvestimentoController extends Controller
     public function investidores($empreendimento_id)
     {
         return \App\Models\Empreendimento::where(['id' => $empreendimento_id])
-        ->with('investimento.usuario')
-        ->get();
+            ->with('investimento.usuario')
+            ->get();
     }
 }
