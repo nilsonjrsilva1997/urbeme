@@ -51,11 +51,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
 
     Route::group(['prefix' => 'empreendimento'], function () {
-        Route::get('/', [\App\Http\Controllers\EmpreendimentoController::class, 'index']);
-        Route::get('/', [\App\Http\Controllers\EmpreendimentoController::class, 'getEmpreendimentoBySlug']);
-        Route::get('/empreendimento_por_slug/{slug}', [\App\Http\Controllers\EmpreendimentoController::class, 'getEmpreendimentoBySlug']);
-        Route::get('/porcentagem_investimentos/{empreendimento_id}', [\App\Http\Controllers\EmpreendimentoController::class, 'porcentagemInvestimentos']);
-        Route::get('show/{id}/', [\App\Http\Controllers\EmpreendimentoController::class, 'show']);
         Route::post('create/', [\App\Http\Controllers\EmpreendimentoController::class, 'create']);
         Route::put('update/{id}', [\App\Http\Controllers\EmpreendimentoController::class, 'update']);
         Route::delete('destroy/{id}', [\App\Http\Controllers\EmpreendimentoController::class, 'destroy']);
@@ -72,7 +67,6 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::group(['prefix' => 'foto_empreendimento'], function () {
         Route::get('/', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'index']);
-        Route::get('show/{id}/', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'show']);
         Route::post('create/', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'create']);
         Route::put('update/{id}', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'update']);
         Route::delete('destroy/{id}', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'destroy']);
@@ -103,6 +97,13 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::group(['prefix' => 'usuario'], function () {
         Route::get('/meus_investimentos', [\App\Http\Controllers\UsuarioController::class, 'meusInvestimentos']);
     });
+});
+
+
+Route::group(['prefix' => 'empreendimento'], function () {
+    Route::get('/', [\App\Http\Controllers\EmpreendimentoController::class, 'index']);
+    Route::get('show/{id}/', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'show']);
+    Route::get('slug/{slug}', [\App\Http\Controllers\EmpreendimentoController::class, 'getEmpreendimentoBySlug']);
 });
 
 Route::post('register/', [\App\Http\Controllers\AuthController::class, 'register']);
