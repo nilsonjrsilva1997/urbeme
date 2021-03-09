@@ -11,18 +11,17 @@ class EmpreendimentoController extends Controller
     {
         $empreendimento = Empreendimento::with('fotos')->with('endereco')->get();
         return $empreendimento;
-        
     }
 
     public function getEmpreendimentoBySlug($slug)
     {
-        return Empreendimento::where(['slug' => $slug])->first();
+        return Empreendimento::where(['slug' => $slug])->with('fotos')->with('endereco')->first();
     }
 
     public function show($id)
     {
         $empreendimento = Empreendimento::find($id);
-        if(!empty($empreendimento)) {
+        if (!empty($empreendimento)) {
             return $empreendimento;
         } else {
             return response(['message' => 'Empreendimento não encontrado']);
@@ -57,11 +56,11 @@ class EmpreendimentoController extends Controller
 
         $fileNameToStore = '';
 
-        if($request->hasFile('logo_incoporadora')) {
+        if ($request->hasFile('logo_incoporadora')) {
             $filenameWithExt = $request->file('logo_incoporadora')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('logo_incoporadora')->getClientOriginalExtension();
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
             $path = $request->file('logo_incoporadora')->storeAs('public/images', $fileNameToStore);
         } else {
             return response(['logo_incoporadora' => 'O logo da incorporadora é obrigatória']);
@@ -71,11 +70,11 @@ class EmpreendimentoController extends Controller
 
         $fileNameToStore = '';
 
-        if($request->hasFile('plano_fundo')) {
+        if ($request->hasFile('plano_fundo')) {
             $filenameWithExt = $request->file('plano_fundo')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('plano_fundo')->getClientOriginalExtension();
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
             $path = $request->file('plano_fundo')->storeAs('public/images', $fileNameToStore);
         } else {
             return response(['plano_fundo' => 'O plcano de fundo é obrigatória']);
@@ -114,7 +113,7 @@ class EmpreendimentoController extends Controller
 
         $empreendimento = Empreendimento::find($id);
 
-        if(!empty($empreendimento)) {
+        if (!empty($empreendimento)) {
             $empreendimento->fill($validatedData);
             $empreendimento->save();
             return $empreendimento;
@@ -127,7 +126,7 @@ class EmpreendimentoController extends Controller
     {
         $empreendimento = Empreendimento::find($id);
 
-        if(!empty($empreendimento)) {
+        if (!empty($empreendimento)) {
             Empreendimento::find($id)->delete();
         } else {
             return response(['message' => 'Empreendimento não encontrado']);
@@ -136,7 +135,7 @@ class EmpreendimentoController extends Controller
 
     public function getProjetosFinalizados()
     {
-        return Empreendimento::where(['status' => 'FINALIZADO'])->get();
+        return Empreendimento::where(['status' => 'FINALIZADO'])->with('fotos')->with('endereco')->get();
     }
 
     public function porcentagemInvestimentos($empreendimento_id)
