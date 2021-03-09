@@ -9,19 +9,34 @@ class EmpreendimentoController extends Controller
 {
     public function index()
     {
-        $empreendimento = Empreendimento::with('fotos')->with('investimento')->with('endereco')->get();
-        return $empreendimento;
+        $empreendimentos = Empreendimento::with('fotos')->with('investimento')->with('endereco')->get();
+        $empreendimentosArray = [];
+
+        foreach ($empreendimentos as $empreendimento) {
+            $empreendimento['porcentagem'] = $empreendimento->calcularPorcentagem($empreendimento->id) . '%';
+            $empreendimentosArray[] = $empreendimento;
+        }
+
+        return $empreendimentosArray;
     }
 
     public function getEmpreendimentoBySlug($slug)
     {
-        return Empreendimento::where(['slug' => $slug])->with('fotos')->with('investimento')->with('endereco')->first();
+        $empreendimento = Empreendimento::where(['slug' => $slug])->with('fotos')->with('investimento')->with('endereco')->first();
+
+        if (!empty($empreendimento)) {
+            $empreendimento['porcentagem'] = $empreendimento->calcularPorcentagem($empreendimento->id) . '%';
+            return $empreendimento;
+        } else {
+            return response(['message' => 'Empreendimento não encontrado']);
+        }
     }
 
     public function show($id)
     {
         $empreendimento = Empreendimento::find($id);
         if (!empty($empreendimento)) {
+            $empreendimento['porcentagem'] = $empreendimento->calcularPorcentagem($empreendimento->id) . '%';
             return $empreendimento;
         } else {
             return response(['message' => 'Empreendimento não encontrado']);
@@ -135,7 +150,15 @@ class EmpreendimentoController extends Controller
 
     public function getProjetosFinalizados()
     {
-        return Empreendimento::where(['status' => 'FINALIZADO'])->with('fotos')->with('investimento')->with('endereco')->get();
+        $empreendimentos = Empreendimento::where(['status' => 'FINALIZADO'])->with('fotos')->with('investimento')->with('endereco')->get();
+        $empreendimentosArray = [];
+
+        foreach ($empreendimentos as $empreendimento) {
+            $empreendimento['porcentagem'] = $empreendimento->calcularPorcentagem($empreendimento->id) . '%';
+            $empreendimentosArray[] = $empreendimento;
+        }
+
+        return $empreendimentosArray;
     }
 
     public function porcentagemInvestimentos($empreendimento_id)

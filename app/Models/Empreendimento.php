@@ -35,4 +35,12 @@ class Empreendimento extends Model
     {
         return $this->hasOne(\App\Models\Investimento::class);
     }
+
+    public function calcularPorcentagem($empreendimento_id)
+    {
+        $valorInvestimentos = \App\Models\Investimento::where(['empreendimento_id' => $empreendimento_id])->sum('valor');
+        $valorCapitacao = \App\Models\Empreendimento::where(['id' => $empreendimento_id])->select('valor_total_capitacao')->first()['valor_total_capitacao'];
+
+        return ($valorInvestimentos * 100) / $valorCapitacao;
+    }
 }
