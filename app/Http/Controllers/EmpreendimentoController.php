@@ -9,7 +9,10 @@ class EmpreendimentoController extends Controller
 {
     public function index()
     {
-        $empreendimentos = Empreendimento::with('fotos')->with('investimento')->with('endereco')->get();
+        $empreendimentos = Empreendimento::with('fotos')
+            ->with('investimento')
+            ->with('endereco')
+            ->get();
         $empreendimentosArray = [];
 
         foreach ($empreendimentos as $empreendimento) {
@@ -22,7 +25,11 @@ class EmpreendimentoController extends Controller
 
     public function getEmpreendimentoBySlug($slug)
     {
-        $empreendimento = Empreendimento::where(['slug' => $slug])->with('fotos')->with('investimento')->with('endereco')->first();
+        $empreendimento = Empreendimento::where(['slug' => $slug])
+            ->with('fotos')
+            ->with('investimento')
+            ->with('endereco')
+            ->first();
 
         if (!empty($empreendimento)) {
             $empreendimento['porcentagem'] = $empreendimento->calcularPorcentagem($empreendimento->id) . '%';
