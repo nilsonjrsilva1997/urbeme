@@ -8,7 +8,10 @@ class InvestimentoController extends Controller
 {
     public function index()
     {
-        return \App\Models\Investimento::where(['user_id' => \Auth::id()])->with('empreendimento')->get();
+        return \App\Models\Investimento::where(['user_id' => \Auth::id()])
+            ->with(['empreendimento' => function ($query) {
+                $query->with('endereco');
+            }])->get();
     }
 
     public function create(Request $request)
