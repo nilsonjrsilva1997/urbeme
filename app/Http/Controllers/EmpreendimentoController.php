@@ -69,33 +69,33 @@ class EmpreendimentoController extends Controller
             'valor_total_capitacao' => 'required|numeric',
         ]);
 
-        $fileNameToStore = '';
+        $fileNameToStoreLogo = '';
 
         if ($request->hasFile('logo_incoporadora')) {
             $filenameWithExt = $request->file('logo_incoporadora')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('logo_incoporadora')->getClientOriginalExtension();
-            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-            $path = $request->file('logo_incoporadora')->storeAs('public/images', $fileNameToStore);
+            $fileNameToStoreLogo = $filename . '_' . time() . '.' . $extension;
+            $path = $request->file('logo_incoporadora')->storeAs('public/images', $fileNameToStoreLogo);
         } else {
             return response(['logo_incoporadora' => 'O logo da incorporadora é obrigatória']);
         }
 
-        $validatedData['logo_incoporadora'] = $fileNameToStore;
+        $validatedData['logo_incoporadora'] = $fileNameToStoreLogo;
 
-        $fileNameToStore = '';
+        $fileNameToStoreFundo = '';
 
         if ($request->hasFile('plano_fundo')) {
             $filenameWithExt = $request->file('plano_fundo')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('plano_fundo')->getClientOriginalExtension();
-            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-            $path = $request->file('plano_fundo')->storeAs('public/images', $fileNameToStore);
+            $fileNameToStoreFundo = $filename . '_' . time() . '.' . $extension;
+            $path = $request->file('plano_fundo')->storeAs('public/images', $fileNameToStoreFundo);
         } else {
             return response(['plano_fundo' => 'O plcano de fundo é obrigatória']);
         }
 
-        $validatedData['plano_fundo'] = $fileNameToStore;
+        $validatedData['plano_fundo'] = $fileNameToStoreFundo;
 
         return Empreendimento::create($validatedData);
     }
