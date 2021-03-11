@@ -78,17 +78,17 @@ class EmpreendimentoController extends Controller
 
         $fileNameToStoreLogo = '';
 
-        if ($request->hasFile('logo_incoporadora')) {
-            $filenameWithExt = $request->file('logo_incoporadora')->getClientOriginalName();
+        if ($request->hasFile('logo_incorporadora')) {
+            $filenameWithExt = $request->file('logo_incorporadora')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('logo_incoporadora')->getClientOriginalExtension();
+            $extension = $request->file('logo_incorporadora')->getClientOriginalExtension();
             $fileNameToStoreLogo = $filename . '_' . time() . '.' . $extension;
-            $path = $request->file('logo_incoporadora')->storeAs('public/images', $fileNameToStoreLogo);
+            $path = $request->file('logo_incorporadora')->storeAs('public/images', $fileNameToStoreLogo);
         } else {
-            return response(['logo_incoporadora' => 'O logo da incorporadora é obrigatória']);
+            return response(['logo_incorporadora' => 'O logo da incorporadora é obrigatória']);
         }
 
-        $validatedData['logo_incoporadora'] = $fileNameToStoreLogo;
+        $validatedData['logo_incorporadora'] = $fileNameToStoreLogo;
 
         $fileNameToStoreFundo = '';
 
