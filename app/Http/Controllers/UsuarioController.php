@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use AUth;
+use Auth;
 
 class UsuarioController extends Controller
 {
