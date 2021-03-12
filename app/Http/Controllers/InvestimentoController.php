@@ -13,7 +13,7 @@ class InvestimentoController extends Controller
         return Investimento::where(['user_id' => Auth::id()])
             ->with(['empreendimento' => function ($query) {
                 $query->with('endereco');
-                $query->with('investimento');
+                $query->with('incorporadora');
             }])->get();
     }
 
