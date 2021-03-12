@@ -72,7 +72,6 @@ class EmpreendimentoController extends Controller
             'rentabilidade_minima_cdi' => 'required|numeric',
             'vencimento_titulo' => 'required|date',
             'tempo_projeto' => 'required|integer',
-            'status' => 'required|in:FINALIZADO,ATIVO',
             'slug' => 'required|unique:empreendimentos,slug',
             'valor_total_capitacao' => 'required|numeric',
             'final_capitacao' => 'required|date',
@@ -87,7 +86,7 @@ class EmpreendimentoController extends Controller
             $fileNameToStoreFundo = $filename . '_' . time() . '.' . $extension;
             $path = $request->file('plano_fundo')->storeAs('public/images', $fileNameToStoreFundo);
         } else {
-            return response(['plano_fundo' => 'O plcano de fundo é obrigatória']);
+            return response(['plano_fundo' => 'O plano de fundo é obrigatória']);
         }
 
         $validatedData['plano_fundo'] = $fileNameToStoreFundo;
@@ -116,7 +115,6 @@ class EmpreendimentoController extends Controller
             'rentabilidade_minima_cdi' => 'numeric',
             'vencimento_titulo' => 'date',
             'tempo_projeto' => 'integer',
-            'status' => 'in:FINALIZADO,ATIVO',
             'slug' => 'unique:empreendimentos,slug',
             'valor_total_capitacao' => 'numeric',
             'final_capitacao' => 'date',

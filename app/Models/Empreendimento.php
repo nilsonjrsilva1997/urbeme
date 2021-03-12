@@ -15,7 +15,7 @@ class Empreendimento extends Model
         'descricao_projeto', 'rentabilidade_anual_min', 'rentabilidade_anual_max', 'rentabilidade_minima_cdi',
         'vencimento_titulo', 'tempo_projeto', 'informacoes_empreendimento', 'informacoes_oferta',
         'informacoes_prestacao_contas', 'alerta_riscos', 'caracteristica_oferta_tributacao_aplicavel',
-        'estudo_viabilidade_economica', 'outras_informacoes', 'pacote_documentos_juridicos', 'status', 'slug', 'valor_total_capitacao', 'final_capitacao',
+        'estudo_viabilidade_economica', 'outras_informacoes', 'pacote_documentos_juridicos', 'slug', 'valor_total_capitacao', 'final_capitacao',
     ];
 
     protected $table = 'empreendimentos';
