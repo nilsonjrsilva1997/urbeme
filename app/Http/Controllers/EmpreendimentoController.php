@@ -11,6 +11,7 @@ class EmpreendimentoController extends Controller
     public function index()
     {
         $empreendimentos = Empreendimento::with('fotos')
+            ->where(['final_capitacao', '>=', 'NOW()'])
             ->with('endereco')
             ->with('incorporadora')
             ->get();

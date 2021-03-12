@@ -28,6 +28,11 @@ class UsuarioController extends Controller
             'sexo' => 'required|in:MASCULINO,FEMININO,OUTRO',
             'aparecer_lista' => 'required|boolean',
             'pessoa_publicamente_exposta' => 'required|boolean',
+            'pais_nascimento_id' => 'required|integer',
+            'cidade_nascimento' => 'required|string|max:255',
+            'estado_nascimento' => 'required|string|max:255',
+            'patrimonio_total' => 'required|numeric',
+            'renda_mensal' => 'required|numeric',
         ]);
 
         $user = \Auth::user();

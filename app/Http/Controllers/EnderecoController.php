@@ -18,14 +18,14 @@ class EnderecoController extends Controller
         $request['user_id'] = $userId;
 
         $validatedData = $request->validate([
-            'cep' => 'required',
+            'cep' => 'required|string|max:255',
             'pais_id' => 'required|integer|exists:paises,id',
             'user_id' => 'required|integer|exists:users,id|unique:enderecos,user_id',
             'estado' => 'required|string|max:255',
             'cidade' => 'required|string|max:255',
             'rua' => 'required|string|max:255',
             'numero' => 'required|numeric',
-            'complemento' => 'required|string|max:255',
+            'complemento' => 'string|max:255',
         ]);
 
         return Endereco::create($validatedData);
@@ -34,16 +34,16 @@ class EnderecoController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'cep' => 'required',
-            'pais_id' => 'required|integer|exists:paises,id',
-            'estado' => 'required|string|max:255',
-            'cidade' => 'required|string|max:255',
-            'rua' => 'required|string|max:255',
-            'numero' => 'required|numeric',
-            'complemento' => 'required|string|max:255',
+            'cep' => 'string|max:255',
+            'pais_id' => 'integer|exists:paises,id',
+            'estado' => 'string|max:255',
+            'cidade' => 'string|max:255',
+            'rua' => 'string|max:255',
+            'numero' => 'numeric',
+            'complemento' => 'string|max:255',
         ]);
 
-        if (\Auth::user()->dados_bancarios->count() == 0) {
+        if (\Auth::user()->endereco->count() == 0) {
             return response(['message' => 'Usuário não possui endereços cadastrados'], 422);
         }
 

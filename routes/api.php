@@ -122,7 +122,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 Route::group(['prefix' => 'empreendimento'], function () {
     Route::get('/', [EmpreendimentoController::class, 'index']);
-    Route::get('show/{id}/', [FotoEmpreendimentoController::class, 'show']);
+    Route::get('show/{id}/', [EmpreendimentoController::class, 'show']);
     Route::get('slug/{slug}', [EmpreendimentoController::class, 'getEmpreendimentoBySlug']);
     Route::get('finalizados/', [EmpreendimentoController::class, 'getProjetosFinalizados']);
 });
