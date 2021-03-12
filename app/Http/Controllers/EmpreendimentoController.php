@@ -185,6 +185,7 @@ class EmpreendimentoController extends Controller
             $empreendimentosArray[] = $empreendimento;
         }
 
+
         return $empreendimentosArray;
     }
 
