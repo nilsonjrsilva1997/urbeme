@@ -73,7 +73,7 @@ class InvestimentoController extends Controller
     public function getBySlug($slug)
     {
         return Investimento::where(['user_id' => Auth::id()])
-            ->whereHas([
+            ->has([
                 'empreendimento' => function ($query) use ($slug) {
                     $query->where(['slug' => $slug]);
                 }
