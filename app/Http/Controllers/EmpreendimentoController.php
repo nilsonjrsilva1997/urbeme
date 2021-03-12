@@ -11,7 +11,7 @@ class EmpreendimentoController extends Controller
     public function index()
     {
         $empreendimentos = Empreendimento::with('fotos')
-            ->where('final_capitacao', '>=', 'NOW()')
+            ->where('final_capitacao', '>=', date("Y-m-d"))
             ->with('endereco')
             ->with('incorporadora')
             ->get();
@@ -173,7 +173,7 @@ class EmpreendimentoController extends Controller
 
     public function getProjetosFinalizados()
     {
-        $empreendimentos = Empreendimento::where(['final_capitacao', '<', 'NOW()'])
+        $empreendimentos = Empreendimento::where(['final_capitacao', '<', date("Y-m-d")])
             ->with('endereco')
             ->with('incorporadora')
             ->get();
