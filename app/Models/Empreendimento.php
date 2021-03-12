@@ -11,11 +11,30 @@ class Empreendimento extends Model
     use HasFactory;
 
     protected $fillable = [
-        'plano_fundo', 'nome_projeto', 'endereco_id', 'incorporadora_id', 'url_video',
-        'descricao_projeto', 'rentabilidade_anual_min', 'rentabilidade_anual_max', 'rentabilidade_minima_cdi',
-        'vencimento_titulo', 'tempo_projeto', 'informacoes_empreendimento', 'informacoes_oferta',
-        'informacoes_prestacao_contas', 'alerta_riscos', 'caracteristica_oferta_tributacao_aplicavel',
-        'estudo_viabilidade_economica', 'outras_informacoes', 'pacote_documentos_juridicos', 'slug', 'valor_total_capitacao', 'final_capitacao',
+        'plano_fundo',
+        'nome_projeto',
+        'endereco_id',
+        'incorporadora_id',
+        'url_video',
+        'descricao_projeto',
+        'rentabilidade_anual_min',
+        'rentabilidade_anual_max',
+        'rentabilidade_minima_cdi',
+        'vencimento_titulo',
+        'tempo_projeto',
+        'informacoes_empreendimento',
+        'informacoes_oferta',
+        'informacoes_prestacao_contas',
+        'alerta_riscos',
+        'caracteristica_oferta_tributacao_aplicavel',
+        'estudo_viabilidade_economica',
+        'outras_informacoes',
+        'pacote_documentos_juridicos',
+        'slug',
+        'valor_total_capitacao',
+        'final_capitacao',
+        'andamento_obras',
+        'unidades_vendidas',
     ];
 
     protected $table = 'empreendimentos';

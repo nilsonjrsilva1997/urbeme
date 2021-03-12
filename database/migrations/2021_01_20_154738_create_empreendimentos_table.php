@@ -37,6 +37,8 @@ class CreateEmpreendimentosTable extends Migration
             $table->longText('pacote_documentos_juridicos');
             $table->float('valor_total_capitacao');
             $table->date('final_capitacao');
+            $table->float('andamento_obras');
+            $table->float('unidades_vendidas');
             $table->timestamps();
         });
     }

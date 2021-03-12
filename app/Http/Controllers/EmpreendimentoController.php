@@ -82,6 +82,8 @@ class EmpreendimentoController extends Controller
             'slug' => 'required|unique:empreendimentos,slug',
             'valor_total_capitacao' => 'required|numeric',
             'final_capitacao' => 'required|date',
+            'andamento_obras' => 'required|numeric',
+            'unidades_vendidas' => 'required|numeric',
         ]);
 
         $fileNameToStoreFundo = '';
@@ -125,6 +127,8 @@ class EmpreendimentoController extends Controller
             'slug' => 'unique:empreendimentos,slug',
             'valor_total_capitacao' => 'numeric',
             'final_capitacao' => 'date',
+            'andamento_obras' => 'numeric',
+            'unidades_vendidas' => 'numeric',
         ]);
 
         $empreendimento = Empreendimento::find($id);
