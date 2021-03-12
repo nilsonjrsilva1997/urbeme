@@ -30,7 +30,9 @@ class EmpreendimentoController extends Controller
             ->with('fotos')
             ->with('endereco')
             ->with('incorporadora')
-            ->with('investimento')
+            ->with(['investimento' => function ($query) {
+                $query->with('usuario');
+            }])
             ->first();
 
         if (!empty($empreendimento)) {
