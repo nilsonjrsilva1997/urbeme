@@ -26,7 +26,8 @@ class InvestimentoController extends Controller
             'valor' => 'required|numeric',
             'codigo_indicacao' => 'required|string|max:255',
             'user_id' => 'required|integer|exists:users,id',
-            'empreendimento_id' => 'required|integer|exists:empreendimentos,id'
+            'empreendimento_id' => 'required|integer|exists:empreendimentos,id',
+            'status' => 'required|string|in:PENDENTE,APROVADO,RECUSADO'
         ]);
 
         return Investimento::create($validatedData);
@@ -38,7 +39,8 @@ class InvestimentoController extends Controller
             'valor' => 'numeric',
             'codigo_indicacao' => 'string|max:255',
             'user_id' => 'integer|exists:users,id',
-            'empreendimento_id' => 'integer|exists:empreendimentos,id'
+            'empreendimento_id' => 'integer|exists:empreendimentos,id',
+            'status' => 'string|in:PENDENTE,APROVADO,RECUSADO'
         ]);
 
         $investimento = Investimento::find($id);
