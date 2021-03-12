@@ -30,6 +30,7 @@ class EmpreendimentoController extends Controller
             ->with('fotos')
             ->with('endereco')
             ->with('incorporadora')
+            ->with('investimento')
             ->first();
 
         if (!empty($empreendimento)) {
@@ -42,7 +43,13 @@ class EmpreendimentoController extends Controller
 
     public function show($id)
     {
-        $empreendimento = Empreendimento::find($id);
+        $empreendimento = Empreendimento::where(['id' => $id])
+            ->with('fotos')
+            ->with('endereco')
+            ->with('incorporadora')
+            ->with('investimento')
+            ->first();
+
         if (!empty($empreendimento)) {
             $empreendimento['porcentagem'] = $empreendimento->calcularPorcentagem($empreendimento->id) . '%';
             return $empreendimento;
@@ -160,9 +167,8 @@ class EmpreendimentoController extends Controller
     public function getProjetosFinalizados()
     {
         $empreendimentos = Empreendimento::where(['final_capitacao', '<', 'NOW()'])
-            ->with('fotos')
-            ->with('investimento')
             ->with('endereco')
+            ->with('incorporadora')
             ->get();
 
         $empreendimentosArray = [];
