@@ -19,6 +19,7 @@ class CreateInvestimentoTable extends Migration
             $table->string('codigo_indicacao')->nullable();
             $table->integer('user_id');
             $table->boolean('termos_uso')->nullable();
+            $table->enum('status', ['PENDENTE', 'APROVADO', 'RECUSADO']);
             $table->integer('empreendimento_id');
             $table->timestamps();
         });

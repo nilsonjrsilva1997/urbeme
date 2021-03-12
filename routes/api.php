@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::group(['prefix' => 'investimento'], function () {
         Route::get('/', [InvestimentoController::class, 'index']);
+        Route::get('slug/{slug}', [InvestimentoController::class, 'getBySlug']);
         Route::get('show/{id}/', [InvestimentoController::class, 'show']);
         Route::post('create/', [InvestimentoController::class, 'create']);
         Route::put('update/{id}', [InvestimentoController::class, 'update']);
