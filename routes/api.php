@@ -1,6 +1,18 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BancoController;
+use App\Http\Controllers\DadoBancarioController;
+use App\Http\Controllers\DocumentoController;
+use App\Http\Controllers\EmpreendimentoController;
+use App\Http\Controllers\EnderecoController;
+use App\Http\Controllers\EnderecoIncorporadoraController;
+use App\Http\Controllers\EstadoCivilController;
+use App\Http\Controllers\FotoEmpreendimentoController;
+use App\Http\Controllers\InvestimentoController;
+use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\IncorporadoraController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,95 +28,103 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::group(['prefix' => 'endereco_incorporadora'], function () {
-        Route::get('/', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'index']);
-        Route::get('show/{id}/', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'show']);
-        Route::post('create/', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'create']);
-        Route::put('update/{id}', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'update']);
-        Route::delete('destroy/{id}', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'destroy']);
+        Route::get('/', [EnderecoIncorporadoraController::class, 'index']);
+        Route::get('show/{id}/', [EnderecoIncorporadoraController::class, 'show']);
+        Route::post('create/', [EnderecoIncorporadoraController::class, 'create']);
+        Route::put('update/{id}', [EnderecoIncorporadoraController::class, 'update']);
+        Route::delete('destroy/{id}', [EnderecoIncorporadoraController::class, 'destroy']);
     });
 
     Route::group(['prefix' => 'documento'], function () {
-        Route::get('/', [\App\Http\Controllers\DocumentoController::class, 'index']);
-        Route::post('create/', [\App\Http\Controllers\DocumentoController::class, 'create']);
+        Route::get('/', [DocumentoController::class, 'index']);
+        Route::post('create/', [DocumentoController::class, 'create']);
     });
 
     Route::group(['prefix' => 'investimento'], function () {
-        Route::get('/', [\App\Http\Controllers\InvestimentoController::class, 'index']);
-        Route::get('show/{id}/', [\App\Http\Controllers\InvestimentoController::class, 'show']);
-        Route::post('create/', [\App\Http\Controllers\InvestimentoController::class, 'create']);
-        Route::put('update/{id}', [\App\Http\Controllers\InvestimentoController::class, 'update']);
-        Route::delete('destroy/{id}', [\App\Http\Controllers\InvestimentoController::class, 'destroy']);
+        Route::get('/', [InvestimentoController::class, 'index']);
+        Route::get('show/{id}/', [InvestimentoController::class, 'show']);
+        Route::post('create/', [InvestimentoController::class, 'create']);
+        Route::put('update/{id}', [InvestimentoController::class, 'update']);
+        Route::delete('destroy/{id}', [InvestimentoController::class, 'destroy']);
     });
 
-    Route::post('resetar_senha/', [\App\Http\Controllers\PasswordController::class, 'resetarSenha']);
+    Route::post('resetar_senha/', [PasswordController::class, 'resetarSenha']);
 
     Route::group(['prefix' => 'endereco_usuario'], function () {
-        Route::get('/', [\App\Http\Controllers\EnderecoController::class, 'index']);
-        Route::get('show/{id}/', [\App\Http\Controllers\EnderecoController::class, 'show']);
-        Route::post('create/', [\App\Http\Controllers\EnderecoController::class, 'create']);
-        Route::put('update/{id}', [\App\Http\Controllers\EnderecoController::class, 'update']);
-        Route::delete('destroy/{id}', [\App\Http\Controllers\EnderecoController::class, 'destroy']);
+        Route::get('/', [EnderecoController::class, 'index']);
+        Route::get('show/{id}/', [EnderecoController::class, 'show']);
+        Route::post('create/', [EnderecoController::class, 'create']);
+        Route::put('update/{id}', [EnderecoController::class, 'update']);
+        Route::delete('destroy/{id}', [EnderecoController::class, 'destroy']);
     });
 
     Route::group(['prefix' => 'investidores'], function () {
-        Route::get('/{empreendimento_id}', [\App\Http\Controllers\InvestimentoController::class, 'investidores']);
+        Route::get('/{empreendimento_id}', [InvestimentoController::class, 'investidores']);
     });
 
     Route::group(['prefix' => 'empreendimento'], function () {
-        Route::post('create/', [\App\Http\Controllers\EmpreendimentoController::class, 'create']);
-        Route::put('update/{id}', [\App\Http\Controllers\EmpreendimentoController::class, 'update']);
-        Route::delete('destroy/{id}', [\App\Http\Controllers\EmpreendimentoController::class, 'destroy']);
+        Route::post('create/', [EmpreendimentoController::class, 'create']);
+        Route::put('update/{id}', [EmpreendimentoController::class, 'update']);
+        Route::delete('destroy/{id}', [EmpreendimentoController::class, 'destroy']);
     });
 
+    Route::group(['prefix' => 'incorporadora'], function () {
+        Route::get('/', [IncorporadoraController::class, 'index']);
+        Route::get('show/{id}/', [IncorporadoraController::class, 'show']);
+        Route::post('create/', [IncorporadoraController::class, 'create']);
+        Route::put('update/{id}', [IncorporadoraController::class, 'update']);
+        Route::delete('destroy/{id}', [IncorporadoraController::class, 'destroy']);
+    });
 
     Route::group(['prefix' => 'estado_civil'], function () {
-        Route::get('/', [\App\Http\Controllers\EstadoCivilController::class, 'index']);
-        Route::get('show/{id}/', [\App\Http\Controllers\EstadoCivilController::class, 'show']);
-        Route::post('create/', [\App\Http\Controllers\EstadoCivilController::class, 'create']);
-        Route::put('update/{id}', [\App\Http\Controllers\EstadoCivilController::class, 'update']);
-        Route::delete('destroy/{id}', [\App\Http\Controllers\EstadoCivilController::class, 'destroy']);
+        Route::get('/', [EstadoCivilController::class, 'index']);
+        Route::get('show/{id}/', [EstadoCivilController::class, 'show']);
+        Route::post('create/', [EstadoCivilController::class, 'create']);
+        Route::put('update/{id}', [EstadoCivilController::class, 'update']);
+        Route::delete('destroy/{id}', [EstadoCivilController::class, 'destroy']);
     });
 
     Route::group(['prefix' => 'foto_empreendimento'], function () {
-        Route::get('/', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'index']);
-        Route::post('create/', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'create']);
-        Route::put('update/{id}', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'update']);
-        Route::delete('destroy/{id}', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'destroy']);
+        Route::get('/', [FotoEmpreendimentoController::class, 'index']);
+        Route::post('create/', [FotoEmpreendimentoController::class, 'create']);
+        Route::put('update/{id}', [FotoEmpreendimentoController::class, 'update']);
+        Route::delete('destroy/{id}', [FotoEmpreendimentoController::class, 'destroy']);
     });
 
     Route::group(['prefix' => 'banco'], function () {
-        Route::get('/', [\App\Http\Controllers\BancoController::class, 'index']);
-        Route::get('show/{id}/', [\App\Http\Controllers\BancoController::class, 'show']);
-        Route::post('create/', [\App\Http\Controllers\BancoController::class, 'create']);
-        Route::put('update/{id}', [\App\Http\Controllers\BancoController::class, 'update']);
-        Route::delete('destroy/{id}', [\App\Http\Controllers\BancoController::class, 'destroy']);
+        Route::get('/', [BancoController::class, 'index']);
+        Route::get('show/{id}/', [BancoController::class, 'show']);
+        Route::post('create/', [BancoController::class, 'create']);
+        Route::put('update/{id}', [BancoController::class, 'update']);
+        Route::delete('destroy/{id}', [BancoController::class, 'destroy']);
     });
 
 
     Route::group(['prefix' => 'dados_bancarios'], function () {
-        Route::get('/', [\App\Http\Controllers\DadoBancarioController::class, 'index']);
-        Route::post('create/', [\App\Http\Controllers\DadoBancarioController::class, 'create']);
-        Route::put('update/{id}', [\App\Http\Controllers\DadoBancarioController::class, 'update']);
+        Route::get('/', [DadoBancarioController::class, 'index']);
+        Route::post('create/', [DadoBancarioController::class, 'create']);
+        Route::put('update/{id}', [DadoBancarioController::class, 'update']);
     });
 
     Route::group(['prefix' => 'dados_pessoais'], function () {
-        Route::get('/', [\App\Http\Controllers\UsuarioController::class, 'index']);
-        Route::post('update/', [\App\Http\Controllers\UsuarioController::class, 'salvarDadosPessoais']);
-        Route::post('upload_foto/', [\App\Http\Controllers\UsuarioController::class, 'uploadFoto']);
-        Route::post('upload_foto_update/', [\App\Http\Controllers\UsuarioController::class, 'uploadFotoUpdate']);
+        Route::get('/', [UsuarioController::class, 'index']);
+        Route::post('update/', [UsuarioController::class, 'salvarDadosPessoais']);
+        Route::post('upload_foto/', [UsuarioController::class, 'uploadFoto']);
+        Route::post('upload_foto_update/', [UsuarioController::class, 'uploadFotoUpdate']);
     });
 
     Route::group(['prefix' => 'usuario'], function () {
-        Route::get('/meus_investimentos', [\App\Http\Controllers\UsuarioController::class, 'meusInvestimentos']);
+        Route::get('/meus_investimentos', [UsuarioController::class, 'meusInvestimentos']);
     });
 });
 
 
 Route::group(['prefix' => 'empreendimento'], function () {
-    Route::get('/', [\App\Http\Controllers\EmpreendimentoController::class, 'index']);
-    Route::get('show/{id}/', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'show']);
-    Route::get('slug/{slug}', [\App\Http\Controllers\EmpreendimentoController::class, 'getEmpreendimentoBySlug']);
+    Route::get('/', [EmpreendimentoController::class, 'index']);
+    Route::get('show/{id}/', [FotoEmpreendimentoController::class, 'show']);
+    Route::get('slug/{slug}', [EmpreendimentoController::class, 'getEmpreendimentoBySlug']);
+    Route::get('finalizados/', [EmpreendimentoController::class, 'getProjetosFinalizados']);
 });
 
-Route::post('register/', [\App\Http\Controllers\AuthController::class, 'register']);
-Route::post('login/', [\App\Http\Controllers\AuthController::class, 'login']);
+Route::post('register/', [AuthController::class, 'register']);
+Route::post('login/', [AuthController::class, 'login']);

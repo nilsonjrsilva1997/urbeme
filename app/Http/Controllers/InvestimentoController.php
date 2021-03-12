@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Investimento;
+use Auth;
 use Illuminate\Http\Request;
 
 class InvestimentoController extends Controller
 {
     public function index()
     {
-        return \App\Models\Investimento::where(['user_id' => \Auth::id()])
+        return Investimento::where(['user_id' => Auth::id()])
             ->with(['empreendimento' => function ($query) {
                 $query->with('endereco');
             }])->get();
@@ -16,7 +18,7 @@ class InvestimentoController extends Controller
 
     public function create(Request $request)
     {
-        $userId = \Auth::id();
+        $userId = Auth::id();
         $request['user_id'] = $userId;
 
         $validatedData = $request->validate([
@@ -26,7 +28,7 @@ class InvestimentoController extends Controller
             'empreendimento_id' => 'required|integer|exists:empreendimentos,id'
         ]);
 
-        return \App\Models\Investimento::create($validatedData);
+        return Investimento::create($validatedData);
     }
 
     public function update(Request $request, $id)
@@ -38,7 +40,7 @@ class InvestimentoController extends Controller
             'empreendimento_id' => 'integer|exists:empreendimentos,id'
         ]);
 
-        $investimento = \App\Models\Investimento::find($id);
+        $investimento = Investimento::find($id);
 
         if (!empty($investimento)) {
             $investimento->fill($validatedData);
@@ -51,10 +53,10 @@ class InvestimentoController extends Controller
 
     public function destroy($id)
     {
-        $investimento = \App\Models\Investimento::find($id);
+        $investimento = Investimento::find($id);
 
         if (!empty($investimento)) {
-            \App\Models\Investimento::find($id)->delete();
+            Investimento::find($id)->delete();
         } else {
             return response(['message' => 'Investimento não encontrado']);
         }
@@ -62,8 +64,8 @@ class InvestimentoController extends Controller
 
     public function investidores($empreendimento_id)
     {
-        return \App\Models\Empreendimento::where(['id' => $empreendimento_id])
-            ->with('investimento.usuario')
+        return Investimento::where(['empreendimento_id' => $empreendimento_id])
+            ->with('usuario')
             ->get();
     }
 }
