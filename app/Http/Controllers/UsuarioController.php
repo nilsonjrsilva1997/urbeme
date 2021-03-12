@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use AUth;
 
 class UsuarioController extends Controller
 {
     public function index()
     {
-        return \Auth::user();
+        return Auth::user();
     }
 
     public function salvarDadosPessoais(Request $request)
@@ -35,7 +36,7 @@ class UsuarioController extends Controller
             'renda_mensal' => 'required|numeric',
         ]);
 
-        $user = \Auth::user();
+        $user = Auth::user();
         $user->fill($validatedData);
         $user->save();
         return $user;
@@ -43,7 +44,7 @@ class UsuarioController extends Controller
 
     public function uploadFoto(Request $request)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
 
         if ($user['foto'] != null) {
             return response(['message' => 'Usuário já possui foto, atualize para mudar'], 422);
@@ -69,7 +70,7 @@ class UsuarioController extends Controller
 
     public function uploadFotoUpdate(Request $request)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
 
         if (!empty($user)) {
             if ($request->hasFile('foto')) {
@@ -96,6 +97,6 @@ class UsuarioController extends Controller
 
     public function meusInvestimentos()
     {
-        return \Auth::user()->with('investimento')->with('investimento.empreendimento')->get()[0]['investimento'];
+        return Auth::user()->with('investimento')->with('investimento.empreendimento')->get()[0]['investimento'];
     }
 }
