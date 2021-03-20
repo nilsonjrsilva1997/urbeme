@@ -17,6 +17,8 @@ class Empreendimento extends Model
         'incorporadora_id',
         'url_video',
         'descricao_projeto',
+        'tipo_investimento',
+        'tipo_recebimento',
         'rentabilidade_anual_min',
         'rentabilidade_anual_max',
         'rentabilidade_minima_cdi',

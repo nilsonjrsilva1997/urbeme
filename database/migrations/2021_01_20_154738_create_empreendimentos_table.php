@@ -22,6 +22,8 @@ class CreateEmpreendimentosTable extends Migration
             $table->integer('incorporadora_id');
             $table->string('url_video');
             $table->longText('descricao_projeto');
+            $table->string('tipo_investimento');
+            $table->string('tipo_recebimento');
             $table->float('rentabilidade_anual_min');
             $table->float('rentabilidade_anual_max');
             $table->float('rentabilidade_minima_cdi');
