@@ -46,6 +46,18 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'incorporadoraapi' => [
+            'driver' => 'passport',
+            'provider' => 'incorporadoras',
+            'hash' => false,
+        ],
+
+        'incorporadora' => [
+            'driver' => 'session',
+            'provider' => 'incorporadoras',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -69,6 +81,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'incorporadoras' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Incorporadora::class,
         ],
 
         // 'users' => [

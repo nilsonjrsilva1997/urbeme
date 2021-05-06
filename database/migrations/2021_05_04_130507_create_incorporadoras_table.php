@@ -18,8 +18,9 @@ class CreateIncorporadorasTable extends Migration
             $table->string('nome_fantasia');
             $table->string('email');
             $table->string('celular');
-            $table->string('senha');
-            
+            $table->string('password');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

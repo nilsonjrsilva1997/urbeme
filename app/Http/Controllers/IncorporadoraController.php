@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\Hash;
 
 class IncorporadoraController extends Controller
 {
+    public function index()
+    {
+        return Auth::user()
+                ->with('dados_incorporadora')
+                ->with('logo')
+                ->first();
+    }
+
     public function register(Request $request)
     {
         $validatedData = $request->validate([
@@ -16,10 +24,10 @@ class IncorporadoraController extends Controller
             'nome_fantasia' => 'required|string|max:255',
             'email' => 'required|string|max:255|unique:incorporadoras,email',
             'celular' => 'required|string|max:255',
-            'senha' => 'required|string|max:255|confirmed',
+            'password' => 'required|string|max:255|confirmed',
         ]);
 
-        $validatedData['senha'] = bcrypt($request->senha);
+        $validatedData['password'] = bcrypt($request->password);
         $incorporadora = Incorporadora::create($validatedData);
         $accessToken = $incorporadora->createToken('authToken')->accessToken;
 
@@ -30,21 +38,15 @@ class IncorporadoraController extends Controller
     {
         $loginData = $request->validate([
             "email" => "email|required",
-            "senha" => "required",
+            "password" => "required",
         ]);
 
-        $incorporadora = Incorporadora::where(['email' => $loginData['email']])->first();
-
-        if(empty($incorporadora)) {
-            return response(['message' => 'Dados inválidos']);
-        }        
-
-        if (!Hash::check($loginData['senha'], $incorporadora->senha)) {
+        if (!Auth::guard('incorporadora')->attempt($loginData)) {
             return response(['message' => 'Dados inválidos']);
         }
 
-        $accessToken = $incorporadora->createToken('authToken')->accessToken;
+        $accessToken = Auth::guard('incorporadora')->user()->createToken('authToken')->accessToken;
 
-        return response(['incorporadora' => $incorporadora, 'access_token' => $accessToken]);
+        return response(['user' => Auth::guard('incorporadora')->user(), 'access_token' => $accessToken]);
     }
 }
