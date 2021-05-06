@@ -108,14 +108,6 @@ Route::group(['prefix' => 'empreendimento'], function () {
 
 Route::post('register/', [\App\Http\Controllers\AuthController::class, 'register']);
 Route::post('login/', [\App\Http\Controllers\AuthController::class, 'login']);
-
-Route::group(['prefix' => 'endereco_incorporadora_user'], function () {
-    Route::get('/', [\App\Http\Controllers\EnderecoIncorporadoraUserController::class, 'index']);
-    Route::get('show/{id}/', [\App\Http\Controllers\EnderecoIncorporadoraUserController::class, 'show']);
-    Route::post('/create', [\App\Http\Controllers\EnderecoIncorporadoraUserController::class, 'create']);
-    Route::put('update/{id}', [\App\Http\Controllers\EnderecoIncorporadoraUserController::class, 'update']);
-    Route::delete('destroy/{id}', [\App\Http\Controllers\EnderecoIncorporadoraUserController::class, 'destroy']);
-});
         
 Route::group(['prefix' => 'incorporadora'], function () {    
     Route::post('register/', [\App\Http\Controllers\IncorporadoraController::class, 'register']);
