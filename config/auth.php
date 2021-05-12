@@ -58,6 +58,18 @@ return [
             'provider' => 'incorporadoras',
             'hash' => false,
         ],
+
+        'admapi' => [
+            'driver' => 'passport',
+            'provider' => 'incorporadoras',
+            'hash' => false,
+        ],
+
+        'adm' => [
+            'driver' => 'session',
+            'provider' => 'incorporadoras',
+            'hash' => false,
+        ],
     ],
 
     /*
