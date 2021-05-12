@@ -14,7 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// click sign hooks
+Route::group(['prefix' => 'clicksign'], function () {
+    Route::group(['prefix' => 'hooks'], function () {
+        Route::post('sing', function () {
+            return true;
+        });
+    });
+});
+
 Route::group(['middleware' => ['auth:api']], function () {
+
     Route::group(['prefix' => 'endereco_incorporadora'], function () {
         Route::get('/', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'index']);
         Route::get('show/{id}/', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'show']);
@@ -122,7 +132,7 @@ Route::group(['prefix' => 'incorporadora'], function () {
 Route::group(['middleware' => ['auth:incorporadoraapi', 'checkuser']], function () {
     Route::group(['prefix' => 'incorporadora'], function () {
         Route::get('/', [\App\Http\Controllers\IncorporadoraController::class, 'index']);
-        
+
         Route::group(['prefix' => 'logo'], function () {
             Route::get('/', [\App\Http\Controllers\LogoIncorporadoraController::class, 'index']);
             Route::get('show/{id}/', [\App\Http\Controllers\LogoIncorporadoraController::class, 'show']);
@@ -165,6 +175,4 @@ Route::group(['prefix' => 'adm'], function () {
 
 // routes ADM
 Route::group(['middleware' => ['auth:admapi']], function () {
-
 });
-        
