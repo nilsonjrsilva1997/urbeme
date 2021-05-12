@@ -156,4 +156,15 @@ Route::group(['middleware' => ['auth:incorporadoraapi', 'checkuser']], function 
         });
     });
 });
+
+Route::group(['prefix' => 'adm'], function () {
+    Route::get('/', [\App\Http\Controllers\AuthAdmController::class, 'index']);
+    Route::post('register/', [\App\Http\Controllers\AuthAdmController::class, 'register']);
+    Route::post('login/', [\App\Http\Controllers\AuthAdmController::class, 'login']);
+});
+
+// routes ADM
+Route::group(['middleware' => ['auth:admapi']], function () {
+
+});
         
