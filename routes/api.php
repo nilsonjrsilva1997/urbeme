@@ -127,5 +127,32 @@ Route::group(['prefix' => 'empreendimento'], function () {
     Route::get('finalizados/', [EmpreendimentoController::class, 'getProjetosFinalizados']);
 });
 
-Route::post('register/', [AuthController::class, 'register']);
-Route::post('login/', [AuthController::class, 'login']);
+Route::post('register/', [\App\Http\Controllers\AuthController::class, 'register']);
+Route::post('login/', [\App\Http\Controllers\AuthController::class, 'login']);
+
+Route::group(['prefix' => 'incorporadora'], function () {
+    Route::post('register/', [\App\Http\Controllers\IncorporadoraController::class, 'register']);
+    Route::post('login/', [\App\Http\Controllers\IncorporadoraController::class, 'login']);
+});
+
+Route::group(['middleware' => ['auth:incorporadoraapi', 'checkuser']], function () {
+    Route::group(['prefix' => 'incorporadora'], function () {
+        Route::get('/', [\App\Http\Controllers\IncorporadoraController::class, 'index']);
+
+        Route::group(['prefix' => 'logo'], function () {
+            Route::get('/', [\App\Http\Controllers\LogoIncorporadoraController::class, 'index']);
+            Route::get('show/{id}/', [\App\Http\Controllers\LogoIncorporadoraController::class, 'show']);
+            Route::post('create/', [\App\Http\Controllers\LogoIncorporadoraController::class, 'create']);
+            Route::put('update/{id}', [\App\Http\Controllers\LogoIncorporadoraController::class, 'update']);
+            Route::delete('destroy/{id}', [\App\Http\Controllers\LogoIncorporadoraController::class, 'destroy']);
+        });
+
+        Route::group(['prefix' => 'dados'], function () {
+            Route::get('/', [\App\Http\Controllers\DadosIncorporadoraController::class, 'index']);
+            Route::get('show/{id}/', [\App\Http\Controllers\DadosIncorporadoraController::class, 'show']);
+            Route::post('/create', [\App\Http\Controllers\DadosIncorporadoraController::class, 'create']);
+            Route::put('update/{id}', [\App\Http\Controllers\DadosIncorporadoraController::class, 'update']);
+            Route::delete('destroy/{id}', [\App\Http\Controllers\DadosIncorporadoraController::class, 'destroy']);
+        });
+    });
+});

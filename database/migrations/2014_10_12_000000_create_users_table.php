@@ -37,8 +37,18 @@ class CreateUsersTable extends Migration
             $table->string('foto')->nullable();
             $table->boolean('aparecer_lista')->nullable();
             $table->boolean('pessoa_publicamente_exposta')->nullable();
+            $table->integer('pais_nascimento_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+
+            /*
+                - Pais nascimento
+                - Estado nascimento
+                - Cidade nascimento
+                - Patrimonio Total
+                - Renda mensal
+            */
         });
     }
 

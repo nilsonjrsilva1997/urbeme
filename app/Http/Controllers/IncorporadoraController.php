@@ -2,97 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Incorporadora;
 use Illuminate\Http\Request;
+use App\Models\Incorporadora;
+use Auth;
+use Illuminate\Support\Facades\Hash;
 
 class IncorporadoraController extends Controller
 {
-
     public function index()
     {
-        $incorporadoras = Incorporadora::with('empreendimento')
-            ->get();
-
-        return $incorporadoras;
-    }
-
-    public function show($id)
-    {
-        $incorporadora = Incorporadora::where(['id' => $id])
-            ->with('empreendimento')
+        return Auth::user()
+            ->with('dados_incorporadora')
+            ->with('logo')
             ->first();
-
-        if (!empty($incorporadora)) {
-            return $incorporadora;
-        } else {
-            return response(['message' => 'Empreendimento não encontrado']);
-        }
     }
 
-    public function create(Request $request)
+    public function register(Request $request)
     {
         $validatedData = $request->validate([
-            'informacoes' => 'required|string|max:10000',
-            'live' => 'required|url',
-            'site' => 'required|url',
+            'cnpj' => 'required|string|max:255|cnpj',
+            'razao_social' => 'required|string|max:255',
+            'nome_fantasia' => 'required|string|max:255',
+            'email' => 'required|string|max:255|unique:incorporadoras,email',
+            'celular' => 'required|string|max:255',
+            'password' => 'required|string|max:255|confirmed',
         ]);
 
-        $fileNameToStoreLogo = '';
+        $validatedData['password'] = bcrypt($request->password);
+        $incorporadora = Incorporadora::create($validatedData);
+        $accessToken = $incorporadora->createToken('authToken')->accessToken;
 
-        if ($request->hasFile('logo')) {
-            $filenameWithExt = $request->file('logo')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('logo')->getClientOriginalExtension();
-            $fileNameToStoreLogo = $filename . '_' . time() . '.' . $extension;
-            $path = $request->file('logo')->storeAs('public/images', $fileNameToStoreLogo);
-        }
-
-        $validatedData['logo'] = $fileNameToStoreLogo;
-
-        return Incorporadora::create($validatedData);
+        return response(['incorporadora' => $incorporadora, 'access_token' => $accessToken]);
     }
 
-    public function update(Request $request, $id)
+    public function login(Request $request)
     {
-        $validatedData = $request->validate([
-            'informacoes' => 'string|max:10000',
-            'live' => 'url',
-            'site' => 'url',
+        $loginData = $request->validate([
+            "email" => "email|required",
+            "password" => "required",
         ]);
 
-        $empreendimento = Incorporadora::find($id);
-
-        if (!empty($empreendimento)) {
-
-            $fileNameToStoreLogo = '';
-
-            if ($request->hasFile('logo')) {
-                $filenameWithExt = $request->file('logo')->getClientOriginalName();
-                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-                $extension = $request->file('logo')->getClientOriginalExtension();
-                $fileNameToStoreLogo = $filename . '_' . time() . '.' . $extension;
-                $path = $request->file('logo')->storeAs('public/images', $fileNameToStoreLogo);
-            }
-
-            $validatedData['logo'] = $fileNameToStoreLogo;
-
-            $empreendimento->fill($validatedData);
-            $empreendimento->save();
-            return $empreendimento;
-        } else {
-            return response(['message' => 'Empreendimento não encontrado']);
+        if (!Auth::guard('incorporadora')->attempt($loginData)) {
+            return response(['message' => 'Dados inválidos']);
         }
-    }
 
-    public function destroy($id)
-    {
-        $incorporadora = Incorporadora::find($id);
+        $accessToken = Auth::guard('incorporadora')->user()->createToken('authToken')->accessToken;
 
-        if (!empty($incorporadora)) {
-            $incorporadora->delete();
-            return true;
-        } else {
-            return response(['message' => 'Empreendimento não encontrado']);
-        }
+        return response(['user' => Auth::guard('incorporadora')->user(), 'access_token' => $accessToken]);
     }
 }
