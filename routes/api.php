@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 // click sign hooks
 Route::group(['prefix' => 'clicksign'], function () {
     Route::group(['prefix' => 'hooks'], function () {
-        Route::post('sing', function () {
+        Route::post('sign', function () {
             return true;
         });
     });
