@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Incorporadora;
 use Auth;
@@ -11,11 +12,11 @@ class IncorporadoraController extends Controller
     public function index()
     {
         return Auth::user()
-                ->with('dados_incorporadora')
-                ->with('logo')
-                ->with('endereco_incorporadora')
-                ->with('socios')
-                ->first();
+            ->with('dados_incorporadora')
+            ->with('logo')
+            ->with('endereco_incorporadora')
+            ->with('socios')
+            ->first();
     }
 
     public function register(Request $request)
