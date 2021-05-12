@@ -13,6 +13,8 @@ class IncorporadoraController extends Controller
         return Auth::user()
                 ->with('dados_incorporadora')
                 ->with('logo')
+                ->with('endereco_incorporadora')
+                ->with('socios')
                 ->first();
     }
 

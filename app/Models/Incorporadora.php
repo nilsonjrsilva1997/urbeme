@@ -8,6 +8,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Models\DadosIncorporadora;
 use App\Models\LogoIncorporadora;
+use App\Models\IncorporadoraEndereco;
+use App\Models\Socios;
 
 class Incorporadora extends Authenticatable
 {
@@ -33,5 +35,15 @@ class Incorporadora extends Authenticatable
     public function logo()
     {
         return $this->hasOne(LogoIncorporadora::class);
+    }
+
+    public function endereco_incorporadora()
+    {
+        return $this->hasOne(IncorporadoraEndereco::class);
+    }
+
+    public function socios()
+    {
+        return $this->hasMany(Socios::class);
     }
 }

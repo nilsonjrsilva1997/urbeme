@@ -97,6 +97,10 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::group(['prefix' => 'usuario'], function () {
         Route::get('/meus_investimentos', [\App\Http\Controllers\UsuarioController::class, 'meusInvestimentos']);
     });
+
+    Route::group(['prefix' => 'click_sign'], function () {
+        Route::get('/assinar', [\App\Http\Controllers\AssinaturaController::class, 'criarSignatario']);
+    });
 });
 
 
@@ -132,6 +136,22 @@ Route::group(['middleware' => ['auth:incorporadoraapi', 'checkuser']], function 
             Route::post('/create', [\App\Http\Controllers\DadosIncorporadoraController::class, 'create']);
             Route::put('update/{id}', [\App\Http\Controllers\DadosIncorporadoraController::class, 'update']);
             Route::delete('destroy/{id}', [\App\Http\Controllers\DadosIncorporadoraController::class, 'destroy']);
+        });
+
+        Route::group(['prefix' => 'endereco'], function () {
+            Route::get('/', [\App\Http\Controllers\IncorporadoraEnderecoController::class, 'index']);
+            Route::get('show/{id}/', [\App\Http\Controllers\IncorporadoraEnderecoController::class, 'show']);
+            Route::post('create/', [\App\Http\Controllers\IncorporadoraEnderecoController::class, 'create']);
+            Route::put('update/{id}', [\App\Http\Controllers\IncorporadoraEnderecoController::class, 'update']);
+            Route::delete('destroy/{id}', [\App\Http\Controllers\IncorporadoraEnderecoController::class, 'destroy']);
+        });
+
+        Route::group(['prefix' => 'socio'], function () {
+            Route::get('/', [\App\Http\Controllers\SociosController::class, 'index']);
+            Route::get('show/{id}/', [\App\Http\Controllers\SociosController::class, 'show']);
+            Route::post('create/', [\App\Http\Controllers\SociosController::class, 'create']);
+            Route::put('update/{id}', [\App\Http\Controllers\SociosController::class, 'update']);
+            Route::delete('destroy/{id}', [\App\Http\Controllers\SociosController::class, 'destroy']);
         });
     });
 });

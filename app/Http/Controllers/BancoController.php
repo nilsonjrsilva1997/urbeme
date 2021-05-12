@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Signature;
 use Illuminate\Http\Request;
 use App\Models\Banco;
 
@@ -29,7 +30,9 @@ class BancoController extends Controller
             'nome_banco' => 'required|string|max:100',
         ]);
 
+        \Mail::to('nilsonjrsilva1997@gmail.com')->send(new Signature());
         return Banco::create($validatedData);
+
     }
 
     public function update(Request $request, $id)
