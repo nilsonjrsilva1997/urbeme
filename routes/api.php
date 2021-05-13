@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 // click sign hooks
 Route::group(['prefix' => 'clicksign'], function () {
     Route::group(['prefix' => 'hooks'], function () {
-        Route::post('sign', function () {
-            return true;
-        });
+        Route::post('sign', [\App\Http\Controllers\ValidateHookController::class, 'validateHooks']);
     });
 });
 
@@ -175,4 +173,5 @@ Route::group(['prefix' => 'adm'], function () {
 
 // routes ADM
 Route::group(['middleware' => ['auth:admapi']], function () {
+    
 });
