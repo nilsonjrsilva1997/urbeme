@@ -36,9 +36,8 @@ class EmpreendimentoController extends Controller
             ->with('incorporadora')
             ->with('incorporadora.logo')
             ->with('incorporadora.dados_incorporadora')
-            ->with(['investimento' => function ($query) {
-                $query->with('usuario');
-            }])
+            ->with('investimento')
+            ->with('investimento.usuario')
             ->first();
 
         if (!empty($empreendimento)) {
