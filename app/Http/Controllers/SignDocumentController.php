@@ -11,22 +11,11 @@ class SignDocumentController extends Controller
 {
     public function checkSign(Request $request)
     {
-        // ['document_key', 'user_id', 'status', 'investimento_id'];
         $userId = Auth::id();
 
-        // $request->validate([
-        //     'investimento_id' => 'required|integer|exists:investimento,id'
-        // ]);
-
-        // $documentUser = DocumentUser::where(['user_id' => $userId])->where(['investimento_id' => $request->investimento_id])->first();
-
-        // if(empty($documentUser)) {
-        //     return response(['message' => 'Documento ou usuário não encontrados'], 422);
-        // }
-
         $documentUser = DocumentUser::where(['user_id' => $userId])
-            ->where(['investimento_id' => $request->investimento_id])
-            ->first();
+            ->where(['document_key' => $request->document_key])
+            ->get();
 
         return $documentUser;
     }
@@ -47,11 +36,13 @@ class SignDocumentController extends Controller
         $signatarioDocument = Http::post('https://sandbox.clicksign.com/api/v1/lists?access_token=' . env('TOKEN_CLICK_SING'), $signatarioDocumentData, []);
 
         $documentUser = DocumentUser::where(['user_id' => $user->id])
-            ->where(['investimento_id' => $request->investimento_id])
+            ->where(['document_key' => $request->document_key])
             ->first();
 
         $documentUser->url = $signatarioDocument['list']['url'];
 
         $documentUser->save();
+
+        return $documentUser;
     }
 }
