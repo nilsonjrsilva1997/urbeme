@@ -14,11 +14,32 @@ class Empreendimento extends Model
     use HasFactory;
 
     protected $fillable = [
-        'logo_incorporadora', 'plano_fundo', 'nome_projeto', 'endereco_id', 'url_video',
-        'descricao_projeto', 'live_incorporadora', 'site_incorporadora', 'rentabilidade_anual', 'rentabilidade_minima',
-        'vencimento_titulo', 'informacoes_incorporadora', 'informacoes_empreendimento', 'informacoes_oferta',
-        'informacoes_prestacao_contas', 'alerta_riscos', 'caracteristica_oferta_tributacao_aplicavel',
-        'estudo_viabilidade_economica', 'outras_informacoes', 'pacote_documentos_juridicos', 'status', 'slug', 'valor_total_capitacao', 'incorporadora_id'
+        'plano_fundo',
+        'nome_projeto',
+        'endereco_id',
+        'incorporadora_id',
+        'url_video',
+        'descricao_projeto',
+        'tipo_investimento',
+        'tipo_recebimento',
+        'rentabilidade_anual_min',
+        'rentabilidade_anual_max',
+        'rentabilidade_minima_cdi',
+        'vencimento_titulo',
+        'tempo_projeto',
+        'informacoes_empreendimento',
+        'informacoes_oferta',
+        'informacoes_prestacao_contas',
+        'alerta_riscos',
+        'caracteristica_oferta_tributacao_aplicavel',
+        'estudo_viabilidade_economica',
+        'outras_informacoes',
+        'pacote_documentos_juridicos',
+        'slug',
+        'valor_total_capitacao',
+        'final_capitacao',
+        'andamento_obras',
+        'unidades_vendidas',
     ];
 
     protected $table = 'empreendimentos';
@@ -35,12 +56,12 @@ class Empreendimento extends Model
 
     public function investimento()
     {
-        return $this->hasOne(Investimento::class);
+        return $this->hasMany(Investimento::class);
     }
 
     public function incorporadora()
     {
-        return $this->hasOne(Incorporadora::class);
+        return $this->belongsTo(Incorporadora::class, 'incorporadora_id', 'id');
     }
 
     public function calcularPorcentagem($empreendimento_id)

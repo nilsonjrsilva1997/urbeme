@@ -140,7 +140,7 @@
       'adms' => 
       array (
         'driver' => 'eloquent',
-        'table' => 'App\\Models\\AdmUser',
+        'model' => 'App\\Models\\AdmUser',
       ),
     ),
     'passwords' => 

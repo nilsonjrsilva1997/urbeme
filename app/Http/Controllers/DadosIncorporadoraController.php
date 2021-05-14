@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\DadosIncorporadora;
 use Auth;
@@ -25,6 +26,7 @@ class DadosIncorporadoraController extends Controller
         $validatedData = $request->validate([
             'url_live' => 'required|string|max:255|url',
             'url_site' => 'required|string|max:255|url',
+            'informacoes' => 'required|string',
             'cpf' => 'required|cpf',
             'incorporadora_id' => 'required|integer|exists:incorporadoras,id',
         ]);
@@ -37,6 +39,7 @@ class DadosIncorporadoraController extends Controller
         $validatedData = $request->validate([
             'url_live' => 'string|max:255',
             'url_site' => 'string|max:255',
+            'informacoes' => 'string',
             'cpf' => 'cpf',
         ]);
 

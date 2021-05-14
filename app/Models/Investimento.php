@@ -9,7 +9,7 @@ class Investimento extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['valor', 'codigo_indicacao', 'user_id', 'empreendimento_id'];
+    protected $fillable = ['valor', 'codigo_indicacao', 'user_id', 'empreendimento_id', 'status'];
 
     protected $table = 'investimento';
 

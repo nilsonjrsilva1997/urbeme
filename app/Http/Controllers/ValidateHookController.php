@@ -14,7 +14,28 @@ class ValidateHookController extends Controller
     public function validateHooks(Request $request)
     {
 
-        return $request;
+        $event_name =  $request->event['name'];
+
+        switch ($event_name) {
+            case 'upload':
+                return 'Upload com sucesso';
+            case 'sign':
+                $document_user = DocumentUser::create([
+                    'document_key' => $request->document['key'],
+                    'user_id' => 1,
+                    'status' => 'ASSINADO',
+                    'investimento_id' => null,
+                    'url' => 'https://google.com',
+                ]);
+
+                return [
+                    'message' => 'Documento assinado: ' . $request->document['key'],
+                    'data' => $document_user
+                ];
+            default:
+                return 'Evento acionado' . $event_name;
+        }
+
 
         // $signatario = Http::post('https://0070dfcc2501.ngrok.io/api/clicksign/hooks/sign/', []);
 
@@ -25,12 +46,12 @@ class ValidateHookController extends Controller
         \App\Models\Teste::create(['nome' => $request['event']['name']]);
         \App\Models\Teste::create(['nome' => $request['document']['key']]);
 
-        if($request->event->name == 'sign') {
+        if ($request->event->name == 'sign') {
             $docKey = $request['document']['key'];
-            
+
 
             $documentUser = DocumentUser::where(['document_key' => $docKey])
-            ->first();
+                ->first();
 
             \App\Models\Teste::create(['nome' => $documentUser->id]);
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\IncorporadoraEndereco;
 use Auth;
@@ -37,7 +38,7 @@ class IncorporadoraEnderecoController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'cep' => 'cep',
+            'cep' => 'formato_cep',
             'bairro' => 'string|max:255',
             'numero' => 'integer',
             'rua' => 'string|max:255',

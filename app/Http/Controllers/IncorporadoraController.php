@@ -10,7 +10,20 @@ use Illuminate\Support\Facades\Hash;
 
 class IncorporadoraController extends Controller
 {
+
     public function index()
+    {
+        $incorporadoras = Incorporadora::query()
+            ->with('dados_incorporadora')
+            ->with('logo')
+            ->with('endereco_incorporadora')
+            ->with('socios')
+            ->get();
+
+        return $incorporadoras;
+    }
+
+    public function me()
     {
         return Auth::user()
             ->with('dados_incorporadora')
@@ -54,6 +67,22 @@ class IncorporadoraController extends Controller
         return response(['user' => Auth::guard('incorporadora')->user(), 'access_token' => $accessToken]);
     }
 
+    public function update(Request $request)
+    {
+        $validatedData = $request->validate([
+            'razao_social' => 'string|max:255',
+            'nome_fantasia' => 'string|max:255',
+            'celular' => 'string|max:255',
+        ]);
+
+        $incorporadora = Auth::user();
+
+        $incorporadora->fill($validatedData);
+        $incorporadora->save();
+
+        return $incorporadora;
+    }
+
     public function getEmpreendimentos()
     {
 
@@ -66,6 +95,13 @@ class IncorporadoraController extends Controller
             ->where('incorporadora_id', $incorporadora_id)
             ->get();
 
-        return $empreendimentos;
+        $empreendimentosArray = [];
+
+        foreach ($empreendimentos as $empreendimento) {
+            $empreendimento['porcentagem'] = $empreendimento->calcularPorcentagem($empreendimento->id) . '%';
+            $empreendimentosArray[] = $empreendimento;
+        }
+
+        return $empreendimentosArray;
     }
 }

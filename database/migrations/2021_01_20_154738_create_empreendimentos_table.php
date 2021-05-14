@@ -15,20 +15,20 @@ class CreateEmpreendimentosTable extends Migration
     {
         Schema::create('empreendimentos', function (Blueprint $table) {
             $table->id();
-            $table->integer('incorporadora_id');
-            $table->integer('endereco_id');
-            $table->string('logo_incoporadora')->nullable();
             $table->string('slug')->unique();
             $table->string('plano_fundo')->nullable();
             $table->string('nome_projeto');
+            $table->integer('endereco_id');
+            $table->integer('incorporadora_id');
             $table->string('url_video');
             $table->longText('descricao_projeto');
-            $table->string('live_incorporadora');
-            $table->string('site_incorporadora');
-            $table->string('rentabilidade_anual');
-            $table->string('rentabilidade_minima');
+            $table->string('tipo_investimento');
+            $table->string('tipo_recebimento');
+            $table->float('rentabilidade_anual_min');
+            $table->float('rentabilidade_anual_max');
+            $table->float('rentabilidade_minima_cdi');
             $table->date('vencimento_titulo');
-            $table->longText('informacoes_incorporadora');
+            $table->integer('tempo_projeto');
             $table->longText('informacoes_empreendimento');
             $table->longText('informacoes_oferta');
             $table->longText('informacoes_prestacao_contas');
@@ -37,8 +37,10 @@ class CreateEmpreendimentosTable extends Migration
             $table->longText('estudo_viabilidade_economica');
             $table->longText('outras_informacoes');
             $table->longText('pacote_documentos_juridicos');
-            $table->enum('status', ['FINALIZADO', 'ATIVO']);
             $table->float('valor_total_capitacao');
+            $table->date('final_capitacao');
+            $table->float('andamento_obras');
+            $table->float('unidades_vendidas');
             $table->timestamps();
         });
     }

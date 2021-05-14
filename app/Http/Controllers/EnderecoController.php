@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Endereco;
+use Auth;
 
 class EnderecoController extends Controller
 {
     public function index()
     {
-        return Endereco::where(['user_id' => \Auth::id()])->first();
+
+        return Endereco::where(['user_id' => Auth::id()])->first();
     }
 
     public function create(Request $request)

@@ -24,14 +24,6 @@ Route::group(['prefix' => 'clicksign'], function () {
 
 Route::group(['middleware' => ['auth:api']], function () {
 
-    Route::group(['prefix' => 'endereco_incorporadora'], function () {
-        Route::get('/', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'index']);
-        Route::get('show/{id}/', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'show']);
-        Route::post('create/', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'create']);
-        Route::put('update/{id}', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'update']);
-        Route::delete('destroy/{id}', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'destroy']);
-    });
-
     Route::group(['prefix' => 'document'], function () {
         Route::post('/create', [\App\Http\Controllers\DocumentController::class, 'create']);
         Route::post('/check_sign', [\App\Http\Controllers\SignDocumentController::class, 'checkSign']);
@@ -79,12 +71,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete('destroy/{id}', [\App\Http\Controllers\EstadoCivilController::class, 'destroy']);
     });
 
-    Route::group(['prefix' => 'foto_empreendimento'], function () {
-        Route::get('/', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'index']);
-        Route::post('create/', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'create']);
-        Route::put('update/{id}', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'update']);
-        Route::delete('destroy/{id}', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'destroy']);
-    });
 
     Route::group(['prefix' => 'banco'], function () {
         Route::get('/', [\App\Http\Controllers\BancoController::class, 'index']);
@@ -128,14 +114,19 @@ Route::post('register/', [\App\Http\Controllers\AuthController::class, 'register
 Route::post('login/', [\App\Http\Controllers\AuthController::class, 'login']);
 
 Route::group(['prefix' => 'incorporadora'], function () {
+    Route::get('/', [\App\Http\Controllers\IncorporadoraController::class, 'index']);
     Route::post('register/', [\App\Http\Controllers\IncorporadoraController::class, 'register']);
     Route::post('login/', [\App\Http\Controllers\IncorporadoraController::class, 'login']);
 });
 
 Route::group(['middleware' => ['auth:incorporadoraapi', 'checkuser']], function () {
-    Route::group(['middleware' => ['auth:incorporadoraapi', 'checkuser']], function () {
-        Route::get('/', [\App\Http\Controllers\IncorporadoraController::class, 'index']);
-        Route::get('/empreendimento', [\App\Http\Controllers\IncorporadoraController::class, 'getEmpreendimentos']);
+
+
+    Route::group(['prefix' => 'incorporadora'], function () {
+
+        Route::get('/me', [\App\Http\Controllers\IncorporadoraController::class, 'me']);
+        Route::put('/update', [\App\Http\Controllers\IncorporadoraController::class, 'update']);
+        Route::get('/empreendimentos', [\App\Http\Controllers\IncorporadoraController::class, 'getEmpreendimentos']);
 
         Route::group(['prefix' => 'logo'], function () {
             Route::get('/', [\App\Http\Controllers\LogoIncorporadoraController::class, 'index']);
@@ -181,6 +172,21 @@ Route::group(['prefix' => 'adm'], function () {
 Route::group(['middleware' => ['auth:admapi']], function () {
     Route::group(['prefix' => 'empreendimento'], function () {
         Route::post('create/', [\App\Http\Controllers\EmpreendimentoController::class, 'create']);
+    });
+
+    Route::group(['prefix' => 'foto_empreendimento'], function () {
+        Route::get('/', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'index']);
+        Route::post('create/', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'create']);
+        Route::put('update/{id}', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'update']);
+        Route::delete('destroy/{id}', [\App\Http\Controllers\FotoEmpreendimentoController::class, 'destroy']);
+    });
+
+    Route::group(['prefix' => 'endereco_incorporadora'], function () {
+        Route::get('/', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'index']);
+        Route::get('show/{id}/', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'show']);
+        Route::post('create/', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'create']);
+        Route::put('update/{id}', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'update']);
+        Route::delete('destroy/{id}', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'destroy']);
     });
 });
 

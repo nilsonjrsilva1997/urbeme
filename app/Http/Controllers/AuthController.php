@@ -21,11 +21,12 @@ class AuthController extends Controller
         $user = User::create($validatedData);
         $accessToken = $user->createToken('authToken')->accessToken;
 
-        // criando usuário no click sign
-        $signerKey = $this->createUserClickSign($user);
+        $signer = $this->createUserClickSign($validatedData);
 
-        // adicionando key ao usuário
-        $user->signer_id = $signerKey;
+        if (isset($signer['signer'])) {
+            $user->signer_id = $signer['signer']['key'];
+        }
+
         $user->save();
 
         return response(['user' => $user, 'access_token' => $accessToken]);
@@ -35,7 +36,7 @@ class AuthController extends Controller
     {
         $signatarioData = [
             "signer" => [
-                "email" => $user->email,
+                "email" => $user['email'],
                 "auths" => [
                     "email"
                 ],
@@ -48,7 +49,7 @@ class AuthController extends Controller
 
         $clickSignUser = Http::post('https://sandbox.clicksign.com/api/v1/signers?access_token=' . env('TOKEN_CLICK_SING'), $signatarioData, []);
 
-        return $clickSignUser['signer']['key'];
+        return $clickSignUser->json();
     }
 
     public function login(Request $request)

@@ -10,7 +10,7 @@ class DadosIncorporadora extends Model
 {
     use HasFactory;
     protected $table = 'dados_incorporadoras';
-    protected $fillable = ['url_live', 'url_site', 'cpf', 'incorporadora_id'];
+    protected $fillable = ['url_live', 'url_site', 'cpf', 'informacoes', 'incorporadora_id'];
 
     public function incorporadora()
     {
