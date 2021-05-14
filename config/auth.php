@@ -61,13 +61,13 @@ return [
 
         'admapi' => [
             'driver' => 'passport',
-            'provider' => 'incorporadoras',
+            'provider' => 'adms',
             'hash' => false,
         ],
 
         'adm' => [
             'driver' => 'session',
-            'provider' => 'incorporadoras',
+            'provider' => 'adms',
             'hash' => false,
         ],
     ],
@@ -98,6 +98,11 @@ return [
         'incorporadoras' => [
             'driver' => 'eloquent',
             'model' => App\Models\Incorporadora::class,
+        ],
+
+        'adms' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\AdmUser::class,
         ],
 
         // 'users' => [

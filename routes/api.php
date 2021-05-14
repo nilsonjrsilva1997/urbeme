@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // click sign hooks
+
 Route::group(['prefix' => 'clicksign'], function () {
     Route::group(['prefix' => 'hooks'], function () {
         Route::post('sign', [\App\Http\Controllers\ValidateHookController::class, 'validateHooks']);
@@ -29,6 +30,12 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post('create/', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'create']);
         Route::put('update/{id}', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'update']);
         Route::delete('destroy/{id}', [\App\Http\Controllers\EnderecoIncorporadoraController::class, 'destroy']);
+    });
+
+    Route::group(['prefix' => 'document'], function () {
+        Route::post('/create', [\App\Http\Controllers\DocumentController::class, 'create']);
+        Route::post('/check_sign', [\App\Http\Controllers\SignDocumentController::class, 'checkSign']);
+        Route::post('/associar', [\App\Http\Controllers\SignDocumentController::class, 'associar']);
     });
 
     Route::group(['prefix' => 'documento'], function () {
@@ -128,7 +135,7 @@ Route::group(['prefix' => 'incorporadora'], function () {
 });
 
 Route::group(['middleware' => ['auth:incorporadoraapi', 'checkuser']], function () {
-    Route::group(['prefix' => 'incorporadora'], function () {
+    Route::group(['middleware' => ['auth:incorporadoraapi', 'checkuser']], function () {
         Route::get('/', [\App\Http\Controllers\IncorporadoraController::class, 'index']);
 
         Route::group(['prefix' => 'logo'], function () {
@@ -173,5 +180,13 @@ Route::group(['prefix' => 'adm'], function () {
 
 // routes ADM
 Route::group(['middleware' => ['auth:admapi']], function () {
-    
 });
+
+        Route::group(['prefix' => 'teste'], function () {
+            Route::get('/', [\App\Http\Controllers\TesteController::class, 'index']);
+            Route::get('show/{id}/', [\App\Http\Controllers\TesteController::class, 'show']);
+            Route::post('/', [\App\Http\Controllers\TesteController::class, 'create']);
+            Route::put('update/{id}', [\App\Http\Controllers\TesteController::class, 'update']);
+            Route::delete('destroy/{id}', [\App\Http\Controllers\TesteController::class, 'destroy']);
+        });
+        

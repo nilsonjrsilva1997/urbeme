@@ -39,10 +39,10 @@ class AuthController extends Controller
                 "auths" => [
                     "email"
                 ],
-                "has_documentation" => true,
-                "selfie_enabled" => true,
-                "handwritten_enabled" => true,
-                "official_document_enabled" => true
+                "has_documentation" => false,
+                "selfie_enabled" => false,
+                "handwritten_enabled" => false,
+                "official_document_enabled" => false
             ]
         ];
 
