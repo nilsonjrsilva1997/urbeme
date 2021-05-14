@@ -32,12 +32,32 @@ class DocumentController extends Controller
             . '/documents?access_token='
             . env('TOKEN_CLICK_SING'), $documentData, []);
 
+        $document_json = $document->json();
+
+        $sign_data = [
+            "list" => [
+                "document_key" => $document_json['document']['key'],
+                "signer_key" => $user->signer_id,
+                "sign_as" => "sign",
+                "group" => 1,
+                "message" => 'assinatura',
+            ]
+        ];
+
+        return $document_json;
+
+        $sign = Http::post('https://sandbox.clicksign.com/api/v1/lists?access_token=' . env('TOKEN_CLICK_SING'), $sign_data, []);
+
+        $sign_json = $sign->json();
+
+        return $sign_json;
+
         DocumentUser::create([
-            'document_key' => $document['document']['key'],
+            'document_key' => $document_json['document']['key'],
             'user_id' => Auth::id(),
-            'investimento_id' => 0,
+            'empreendimento_id' => $request->empreendimento_id,
             'status' => 'ANALISE',
-            'url' => ''
+            'url' => $sign_json['list']['url'],
         ]);
 
         return $document;

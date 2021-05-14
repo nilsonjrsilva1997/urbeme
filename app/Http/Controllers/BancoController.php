@@ -30,9 +30,8 @@ class BancoController extends Controller
             'nome_banco' => 'required|string|max:100',
         ]);
 
-        \Mail::to('nilsonjrsilva1997@gmail.com')->send(new Signature());
-        return Banco::create($validatedData);
 
+        return Banco::create($validatedData);
     }
 
     public function update(Request $request, $id)

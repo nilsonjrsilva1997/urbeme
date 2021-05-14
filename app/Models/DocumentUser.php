@@ -9,7 +9,7 @@ class DocumentUser extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['document_key', 'user_id', 'status', 'investimento_id', 'url'];
+    protected $fillable = ['document_key', 'user_id', 'status', 'empreendimento_id', 'url'];
 
     protected $table = 'document_users';
 }

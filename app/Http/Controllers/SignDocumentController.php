@@ -13,9 +13,9 @@ class SignDocumentController extends Controller
     {
         $userId = Auth::id();
 
-        $documentUser = DocumentUser::where(['user_id' => $userId])
-            ->where(['document_key' => $request->document_key])
-            ->get();
+        $documentUser = DocumentUser::where('user_id', $userId)
+            ->where('empreendimento_id', $request->empreendimento_id)
+            ->first();
 
         return $documentUser;
     }

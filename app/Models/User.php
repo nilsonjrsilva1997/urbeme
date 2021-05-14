@@ -32,9 +32,14 @@ class User extends Authenticatable
         'foto',
         'aparecer_lista',
         'pessoa_publicamente_exposta',
+        'pais_nascimento_id',
+        'cidade_nascimento',
+        'estado_nascimento',
+        'patrimonio_total',
+        'renda_mensal',
         'signer_id'
     ];
-    
+
     protected $hidden = [
         'password',
         'remember_token',

@@ -17,7 +17,7 @@ class CreateDocumentUsersTable extends Migration
             $table->id();
             $table->string('document_key');
             $table->integer('user_id');
-            $table->integer('investimento_id');
+            $table->integer('empreendimento_id');
             $table->enum('status', ['ANALISE', 'ASSINADO'])->nullable();
             $table->string('url')->nullable();
             $table->timestamps();

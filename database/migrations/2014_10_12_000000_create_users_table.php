@@ -18,6 +18,11 @@ class CreateUsersTable extends Migration
             $table->string('nome');
             $table->string('sobre_nome');
             $table->string('email')->unique();
+            $table->integer('pais_nascimento_id')->nullable();
+            $table->string('cidade_nascimento')->nullable();
+            $table->string('estado_nascimento')->nullable();
+            $table->float('patrimonio_total')->nullable();
+            $table->float('renda_mensal')->nullable();
             $table->date('data_nascimento')->nullable();
             $table->integer('estado_civil_id')->nullable();
             $table->string('cpf')->nullable();
@@ -32,7 +37,6 @@ class CreateUsersTable extends Migration
             $table->string('foto')->nullable();
             $table->boolean('aparecer_lista')->nullable();
             $table->boolean('pessoa_publicamente_exposta')->nullable();
-            $table->integer('pais_nascimento_id')->nullable();
             $table->string('signer_id')->nullable();
             $table->rememberToken();
             $table->timestamps();

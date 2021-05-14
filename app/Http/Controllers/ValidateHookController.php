@@ -19,18 +19,15 @@ class ValidateHookController extends Controller
             case 'upload':
                 return 'Upload com sucesso';
             case 'sign':
-                $document_user = DocumentUser::create([
-                    'document_key' => $request->document['key'],
-                    'user_id' => 1,
-                    'status' => 'ASSINADO',
-                    'investimento_id' => null,
-                    'url' => 'https://google.com',
-                ]);
+                $document_user = DocumentUser::where(
+                    'document_key',
+                    $request->document['key']
+                );
 
-                return [
-                    'message' => 'Documento assinado: ' . $request->document['key'],
-                    'data' => $document_user
-                ];
+                $document_user->status = "ASSINADO";
+                $document_user->save();
+
+                return true;
             default:
                 return 'Evento acionado' . $event_name;
         }
