@@ -12,7 +12,7 @@ class AssinaturaController extends Controller
 {
     public function criarSignatario()
     {
-        $token = env('TOKEN_CLICK_SING');
+        $token = "a5195ae1-a66e-4563-b77e-2b434be1fab8";
 
         $email = Auth::user()->email;
 

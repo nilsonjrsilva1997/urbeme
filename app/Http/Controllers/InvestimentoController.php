@@ -14,6 +14,8 @@ class InvestimentoController extends Controller
             ->with('empreendimento')
             ->with('empreendimento.endereco')
             ->with('empreendimento.incorporadora')
+            ->with('empreendimento.incorporadora.dados_incorporadora')
+            ->with('empreendimento.incorporadora.logo')
             ->get();
     }
 
@@ -77,6 +79,6 @@ class InvestimentoController extends Controller
         return Investimento::where(['user_id' => Auth::id()])
             ->whereHas('empreendimento', function ($query) use ($slug) {
                 $query->where('slug', '=', $slug);
-            })->first();
+            })->get();
     }
 }

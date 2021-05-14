@@ -22,7 +22,7 @@ class ValidateHookController extends Controller
                 $document_user = DocumentUser::where(
                     'document_key',
                     $request->document['key']
-                );
+                )->first();
 
                 $document_user->status = "ASSINADO";
                 $document_user->save();

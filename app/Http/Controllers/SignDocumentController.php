@@ -14,6 +14,7 @@ class SignDocumentController extends Controller
         $userId = Auth::id();
 
         $documentUser = DocumentUser::where('user_id', $userId)
+            ->where('document_key', $request->key)
             ->where('empreendimento_id', $request->empreendimento_id)
             ->first();
 
@@ -33,7 +34,7 @@ class SignDocumentController extends Controller
             ]
         ];
 
-        $signatarioDocument = Http::post('https://sandbox.clicksign.com/api/v1/lists?access_token=' . env('TOKEN_CLICK_SING'), $signatarioDocumentData, []);
+        $signatarioDocument = Http::post('https://sandbox.clicksign.com/api/v1/lists?access_token=a5195ae1-a66e-4563-b77e-2b434be1fab8', $signatarioDocumentData, []);
 
         $documentUser = DocumentUser::where(['user_id' => $user->id])
             ->where(['document_key' => $request->document_key])

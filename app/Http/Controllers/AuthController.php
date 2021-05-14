@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
+use Config;
 
 class AuthController extends Controller
 {
@@ -29,7 +30,7 @@ class AuthController extends Controller
 
         $user->save();
 
-        return response(['user' => $user, 'access_token' => $accessToken]);
+        return response(['user' => $user, 'access_token' => $accessToken, 'clicksign' => $signer]);
     }
 
     public function createUserClickSign($user)
@@ -47,9 +48,15 @@ class AuthController extends Controller
             ]
         ];
 
-        $clickSignUser = Http::post('https://sandbox.clicksign.com/api/v1/signers?access_token=' . env('TOKEN_CLICK_SING'), $signatarioData, []);
+        $url = 'https://sandbox.clicksign.com/api/v1/signers?access_token=a5195ae1-a66e-4563-b77e-2b434be1fab8';
 
-        return $clickSignUser->json();
+        $clickSignUser = Http::post($url, $signatarioData, []);
+
+        $json = $clickSignUser->json();
+
+        $json['data'] = $signatarioData;
+
+        return $json;
     }
 
     public function login(Request $request)
