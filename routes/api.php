@@ -182,11 +182,10 @@ Route::group(['prefix' => 'adm'], function () {
 Route::group(['middleware' => ['auth:admapi']], function () {
 });
 
-        Route::group(['prefix' => 'teste'], function () {
-            Route::get('/', [\App\Http\Controllers\TesteController::class, 'index']);
-            Route::get('show/{id}/', [\App\Http\Controllers\TesteController::class, 'show']);
-            Route::post('/', [\App\Http\Controllers\TesteController::class, 'create']);
-            Route::put('update/{id}', [\App\Http\Controllers\TesteController::class, 'update']);
-            Route::delete('destroy/{id}', [\App\Http\Controllers\TesteController::class, 'destroy']);
-        });
-        
+Route::group(['prefix' => 'teste'], function () {
+    Route::get('/', [\App\Http\Controllers\TesteController::class, 'index']);
+    Route::get('show/{id}/', [\App\Http\Controllers\TesteController::class, 'show']);
+    Route::post('/', [\App\Http\Controllers\TesteController::class, 'create']);
+    Route::put('update/{id}', [\App\Http\Controllers\TesteController::class, 'update']);
+    Route::delete('destroy/{id}', [\App\Http\Controllers\TesteController::class, 'destroy']);
+});

@@ -11,11 +11,6 @@ class DocumentController extends Controller
 {
     public function create(Request $request)
     {
-
-        $request->validate([
-            'investimento_id' => 'required|integer|exists:investimento,id'
-        ]);
-
         $user = Auth::user();
 
         $documentData = [
@@ -40,7 +35,7 @@ class DocumentController extends Controller
         DocumentUser::create([
             'document_key' => $document['document']['key'],
             'user_id' => Auth::id(),
-            'investimento_id' => $request->investimento_id,
+            'investimento_id' => 0,
             'status' => 'ANALISE',
             'url' => ''
         ]);
