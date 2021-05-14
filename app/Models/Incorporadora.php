@@ -10,11 +10,12 @@ use App\Models\DadosIncorporadora;
 use App\Models\LogoIncorporadora;
 use App\Models\IncorporadoraEndereco;
 use App\Models\Socios;
+use App\Models\Empreendimento;
 
 class Incorporadora extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    
+
     protected $table = 'incorporadoras';
 
     protected $fillable = ['cnpj', 'razao_social', 'nome_fantasia', 'email', 'celular', 'password'];
@@ -45,5 +46,10 @@ class Incorporadora extends Authenticatable
     public function socios()
     {
         return $this->hasMany(Socios::class);
+    }
+
+    public function empreendimentos()
+    {
+        return $this->hasMany(Empreendimento::class);
     }
 }

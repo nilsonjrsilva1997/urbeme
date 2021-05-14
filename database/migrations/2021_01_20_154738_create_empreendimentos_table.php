@@ -15,11 +15,12 @@ class CreateEmpreendimentosTable extends Migration
     {
         Schema::create('empreendimentos', function (Blueprint $table) {
             $table->id();
+            $table->integer('incorporadora_id');
+            $table->integer('endereco_id');
             $table->string('logo_incoporadora')->nullable();
             $table->string('slug')->unique();
             $table->string('plano_fundo')->nullable();
             $table->string('nome_projeto');
-            $table->integer('endereco_id');
             $table->string('url_video');
             $table->longText('descricao_projeto');
             $table->string('live_incorporadora');

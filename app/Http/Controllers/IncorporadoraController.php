@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Empreendimento;
 use Illuminate\Http\Request;
 use App\Models\Incorporadora;
 use Auth;
@@ -51,5 +52,20 @@ class IncorporadoraController extends Controller
         $accessToken = Auth::guard('incorporadora')->user()->createToken('authToken')->accessToken;
 
         return response(['user' => Auth::guard('incorporadora')->user(), 'access_token' => $accessToken]);
+    }
+
+    public function getEmpreendimentos()
+    {
+
+        $incorporadora_id = Auth::id();
+
+        $empreendimentos = Empreendimento::query()
+            ->with('endereco')
+            ->with('fotos')
+            ->with('investimento')
+            ->where('incorporadora_id', $incorporadora_id)
+            ->get();
+
+        return $empreendimentos;
     }
 }

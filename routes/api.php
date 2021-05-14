@@ -61,7 +61,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
 
     Route::group(['prefix' => 'empreendimento'], function () {
-        Route::post('create/', [\App\Http\Controllers\EmpreendimentoController::class, 'create']);
         Route::put('update/{id}', [\App\Http\Controllers\EmpreendimentoController::class, 'update']);
         Route::delete('destroy/{id}', [\App\Http\Controllers\EmpreendimentoController::class, 'destroy']);
     });
@@ -131,6 +130,7 @@ Route::group(['prefix' => 'incorporadora'], function () {
 Route::group(['middleware' => ['auth:incorporadoraapi', 'checkuser']], function () {
     Route::group(['prefix' => 'incorporadora'], function () {
         Route::get('/', [\App\Http\Controllers\IncorporadoraController::class, 'index']);
+        Route::get('/empreendimento', [\App\Http\Controllers\IncorporadoraController::class, 'getEmpreendimentos']);
 
         Route::group(['prefix' => 'logo'], function () {
             Route::get('/', [\App\Http\Controllers\LogoIncorporadoraController::class, 'index']);
@@ -174,4 +174,7 @@ Route::group(['prefix' => 'adm'], function () {
 
 // routes ADM
 Route::group(['middleware' => ['auth:admapi']], function () {
+    Route::group(['prefix' => 'empreendimento'], function () {
+        Route::post('create/', [\App\Http\Controllers\EmpreendimentoController::class, 'create']);
+    });
 });

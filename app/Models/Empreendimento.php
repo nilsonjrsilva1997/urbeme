@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\EnderecoIncorporadora;
 use App\Models\FotosEmpreendimento;
+use App\Models\Investimento;
+use App\Models\Incorporadora;
 
 class Empreendimento extends Model
 {
@@ -16,7 +18,7 @@ class Empreendimento extends Model
         'descricao_projeto', 'live_incorporadora', 'site_incorporadora', 'rentabilidade_anual', 'rentabilidade_minima',
         'vencimento_titulo', 'informacoes_incorporadora', 'informacoes_empreendimento', 'informacoes_oferta',
         'informacoes_prestacao_contas', 'alerta_riscos', 'caracteristica_oferta_tributacao_aplicavel',
-        'estudo_viabilidade_economica', 'outras_informacoes', 'pacote_documentos_juridicos', 'status', 'slug', 'valor_total_capitacao'
+        'estudo_viabilidade_economica', 'outras_informacoes', 'pacote_documentos_juridicos', 'status', 'slug', 'valor_total_capitacao', 'incorporadora_id'
     ];
 
     protected $table = 'empreendimentos';
@@ -33,7 +35,12 @@ class Empreendimento extends Model
 
     public function investimento()
     {
-        return $this->hasOne(\App\Models\Investimento::class);
+        return $this->hasOne(Investimento::class);
+    }
+
+    public function incorporadora()
+    {
+        return $this->hasOne(Incorporadora::class);
     }
 
     public function calcularPorcentagem($empreendimento_id)

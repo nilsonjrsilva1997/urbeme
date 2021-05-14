@@ -47,6 +47,7 @@ class EmpreendimentoController extends Controller
     {
         $validatedData = $request->validate([
             'nome_projeto' => 'required|string|max:255',
+            'incorporadora_id' => 'required|integer|exists:incorporadoras,id',
             'endereco_id' => 'required|integer|exists:enderecos_incorporadora,id',
             'url_video' => 'required|url',
             'descricao_projeto' => 'required|string|max:10000',
@@ -104,6 +105,7 @@ class EmpreendimentoController extends Controller
     {
         $validatedData = $request->validate([
             'nome_projeto' => 'string|max:255',
+            'incorporadora_id' => 'integer|exists:incorporadoras,id',
             'endereco_id' => 'integer|exists:enderecos_incorporadora,id',
             'url_video' => 'url',
             'descricao_projeto' => 'string|max:10000',
