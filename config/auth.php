@@ -102,8 +102,13 @@ return [
 
         'adms' => [
             'driver' => 'eloquent',
-            'table' => App\Models\AdmUser::class,
+            'model' => App\Models\AdmUser::class,
         ],
+
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'table' => 'users',
+        // ],
     ],
 
     /*

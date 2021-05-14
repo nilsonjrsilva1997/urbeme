@@ -33,6 +33,7 @@ class CreateUsersTable extends Migration
             $table->boolean('aparecer_lista')->nullable();
             $table->boolean('pessoa_publicamente_exposta')->nullable();
             $table->integer('pais_nascimento_id')->nullable();
+            $table->string('signer_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
 

@@ -32,11 +32,13 @@ class User extends Authenticatable
         'foto',
         'aparecer_lista',
         'pessoa_publicamente_exposta',
+        'signer_id'
     ];
     
     protected $hidden = [
         'password',
         'remember_token',
+        'signer_id'
     ];
 
     protected $casts = [
