@@ -60,3 +60,5 @@ class AssinaturaController extends Controller
         return $signatarioDocument['list']['url'];
     }
 }
+
+// ContractGenerator
